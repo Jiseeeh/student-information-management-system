@@ -4,6 +4,12 @@
  */
 package sims.ui;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import sims.database.DatabaseConnector;
+import sims.model.Email;
 /**
  *
  * @author johnc
@@ -27,10 +33,10 @@ public class SignUpFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         signUpLabel = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        iconLabel = new javax.swing.JLabel();
         firstNameLabel = new javax.swing.JLabel();
         firstNameField = new javax.swing.JTextField();
-        firstNameLabel1 = new javax.swing.JLabel();
+        lastNameLabel = new javax.swing.JLabel();
         lastNameField = new javax.swing.JTextField();
         studentNumberLabel = new javax.swing.JLabel();
         studentNumberField = new javax.swing.JTextField();
@@ -39,25 +45,32 @@ public class SignUpFrame extends javax.swing.JFrame {
         departmentComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Sign Up");
 
         signUpLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         signUpLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         signUpLabel.setText("Sign Up");
         signUpLabel.setAlignmentX(0.5F);
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\johnc\\Downloads\\student.png")); // NOI18N
+        iconLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        iconLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\johnc\\Downloads\\student.png")); // NOI18N
 
         firstNameLabel.setLabelFor(firstNameField);
         firstNameLabel.setText("First Name");
 
-        firstNameLabel1.setLabelFor(lastNameField);
-        firstNameLabel1.setText("Last Name");
+        lastNameLabel.setLabelFor(lastNameField);
+        lastNameLabel.setText("Last Name");
 
         studentNumberLabel.setLabelFor(studentNumberField);
         studentNumberLabel.setText("Student  Number");
 
         signUpButton.setText("Sign Up");
+
+        signUpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signUpButtonActionPerformed(evt);
+            }
+        });
 
         departmentLabel.setLabelFor(departmentComboBox);
         departmentLabel.setText("Department");
@@ -85,14 +98,14 @@ public class SignUpFrame extends javax.swing.JFrame {
                         .addComponent(departmentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(13, 13, 13)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+                        .addComponent(iconLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
                         .addGap(26, 26, 26))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(studentNumberLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(148, 148, 148))
                     .addComponent(studentNumberField)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(firstNameLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lastNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(182, 182, 182))
                     .addComponent(lastNameField)
                     .addGroup(layout.createSequentialGroup()
@@ -107,13 +120,13 @@ public class SignUpFrame extends javax.swing.JFrame {
                 .addGap(21, 21, 21)
                 .addComponent(signUpLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(iconLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(firstNameLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(firstNameLabel1)
+                .addComponent(lastNameLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lastNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -132,6 +145,57 @@ public class SignUpFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void signUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpButtonActionPerformed
+        if (!isValid(firstNameField.getText())) {
+            Modal.show("First Name must be valid.", "Invalid First Name", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (!isValid(lastNameField.getText())) {
+            Modal.show("Last Name must be valid.", "Invalid Last Name", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // TODO: add max length of student num
+        if (!studentNumberField.getText().matches("[0-9]+")) {
+            Modal.show("Student Number must only be numbers.", "Invalid Student Number", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        var email = new Email(firstNameField.getText(), lastNameField.getText(), departmentComboBox.getSelectedItem().toString());
+        System.out.println(email.showInfo());
+
+        try {
+            var conn = DatabaseConnector.getConnection();
+
+            String query = "INSERT INTO student (firstName,lastName,department,studentNumber,email,password) VALUES('%s','%s','%s','%s','%s','%s')".formatted(email.getFirstName(), email.getLastName(), email.getDepartment(), studentNumberField.getText(), email.getEmail(), email.getPassword());
+
+            var preparedStmt = conn.prepareStatement(query);
+
+            int rowsInserted = preparedStmt.executeUpdate();
+
+            if (rowsInserted > 0) {
+                System.out.println("Sign up success!");
+                Modal.show("Success", "Sign up Succcess, you can now login.", JOptionPane.INFORMATION_MESSAGE);
+
+                conn.close();
+                preparedStmt.close();
+                this.dispose();
+            }
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            String message = ex.getMessage().contains("Duplicate") ? "Student Number is already taken." : "Something went wrong";
+            Modal.show(message, "Error", JOptionPane.ERROR_MESSAGE);
+
+            Logger.getLogger(SignUpFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+    }//GEN-LAST:event_signUpButtonActionPerformed
+
+    private boolean isValid(String input) {
+        return !(input == null || input.trim().equals("") || input.matches("\\s+"));
+    }
     /**
      * @param args the command line arguments
      */
@@ -173,9 +237,9 @@ public class SignUpFrame extends javax.swing.JFrame {
     private javax.swing.JLabel departmentLabel;
     private javax.swing.JTextField firstNameField;
     private javax.swing.JLabel firstNameLabel;
-    private javax.swing.JLabel firstNameLabel1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel iconLabel;
     private javax.swing.JTextField lastNameField;
+    private javax.swing.JLabel lastNameLabel;
     private javax.swing.JButton signUpButton;
     private javax.swing.JLabel signUpLabel;
     private javax.swing.JTextField studentNumberField;
