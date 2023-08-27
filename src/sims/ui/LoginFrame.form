@@ -63,7 +63,7 @@
               <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
               <Component id="loginLabel" min="-2" pref="52" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="iconLabel" min="-2" pref="206" max="-2" attributes="0"/>
+              <Component id="iconLabel" min="-2" pref="206" max="-2" attributes="0"/>              
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="studentNumberOrEmailLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>

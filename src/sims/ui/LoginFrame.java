@@ -42,6 +42,7 @@ public class LoginFrame extends javax.swing.JFrame {
         passwordField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        
         setTitle("Login");
 
         loginLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -56,6 +57,7 @@ public class LoginFrame extends javax.swing.JFrame {
         studentNumberOrEmailLabel.setText("Student Number / Email");
 
         loginButton.setText("Login");
+
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginButtonActionPerformed(evt);
@@ -164,7 +166,6 @@ public class LoginFrame extends javax.swing.JFrame {
     private boolean isValid(String input) {
         return !(input == null || input.trim().equals("") || input.matches("\\s+"));
     }
-
     /**
      * @param args the command line arguments
      */

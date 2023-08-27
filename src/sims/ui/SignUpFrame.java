@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import sims.database.DatabaseConnector;
 import sims.model.Email;
-
 /**
  *
  * @author johnc
@@ -66,6 +65,7 @@ public class SignUpFrame extends javax.swing.JFrame {
         studentNumberLabel.setText("Student  Number");
 
         signUpButton.setText("Sign Up");
+
         signUpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 signUpButtonActionPerformed(evt);
@@ -196,7 +196,6 @@ public class SignUpFrame extends javax.swing.JFrame {
     private boolean isValid(String input) {
         return !(input == null || input.trim().equals("") || input.matches("\\s+"));
     }
-
     /**
      * @param args the command line arguments
      */
