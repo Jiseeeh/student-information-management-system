@@ -131,33 +131,37 @@ public class LoginFrame extends javax.swing.JFrame {
             return;
         }
 
-        try {
-            var conn = DatabaseConnector.getConnection();
+        try (var conn = DatabaseConnector.getConnection()) {
             var stmt = conn.createStatement();
-            String query = "SELECT * FROM student WHERE password = '%s' AND studentNumber = '%s' OR email = '%s'".formatted(password, studentNumberOrEmailField.getText(), studentNumberOrEmailField.getText());
-            var rs = stmt.executeQuery(query);
+            String selectStudentQuery = "SELECT * FROM student WHERE password = '%s' AND studentNumber = '%s' OR email = '%s'".formatted(password, studentNumberOrEmailField.getText(), studentNumberOrEmailField.getText());
+            var studentResultSet = stmt.executeQuery(selectStudentQuery);
 
             // if there are no results returned
-            if (!rs.isBeforeFirst()) {
+            if (!studentResultSet.isBeforeFirst()) {
                 Modal.show("No student found!", "Notice", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
             var student = new Student(); // maybe we can serialize/save this to save the current logged in user.
-            while (rs.next()) {
+            while (studentResultSet.next()) {
 
-                student.setFirstName(rs.getString("firstName"));
-                student.setLastName(rs.getString("lastName"));
-                student.setDepartment(rs.getString("department"));
-                student.setStudentNumber(rs.getString("studentNumber"));
-                student.setEmail(rs.getString("email"));
-                student.setPassword(rs.getString("password"));
+                student.setFirstName(studentResultSet.getString("firstName"));
+                student.setLastName(studentResultSet.getString("lastName"));
+                student.setDepartment(studentResultSet.getString("department"));
+                student.setStudentNumber(studentResultSet.getString("studentNumber"));
+                student.setEmail(studentResultSet.getString("email"));
+                student.setPassword(studentResultSet.getString("password"));
             }
 
             System.out.println(student);
-
-            conn.close();
-            rs.close();
+            Modal.show("You will now be redirected to the dashboard.", "Login success!", JOptionPane.INFORMATION_MESSAGE);
+            
+            var homepage = new WindowFrame(student);
+            homepage.setLocationRelativeTo(null);
+            homepage.setVisible(true);
+            
+            studentResultSet.close();
+            this.dispose();
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -166,6 +170,7 @@ public class LoginFrame extends javax.swing.JFrame {
     private boolean isValid(String input) {
         return !(input == null || input.trim().equals("") || input.matches("\\s+"));
     }
+
     /**
      * @param args the command line arguments
      */
