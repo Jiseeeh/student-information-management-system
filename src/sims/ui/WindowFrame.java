@@ -4,6 +4,8 @@
  */
 package sims.ui;
 
+import sims.model.Student;
+
 /**
  *
  * @author Jireh
@@ -13,13 +15,17 @@ public class WindowFrame extends javax.swing.JFrame {
     // Colors class which containts the custom colors
     Colors color = new Colors();
     public boolean isActive;
+    private Student student;
 
     /**
      * Creates new form MainFrame
+     * @param student
      */
-    public WindowFrame() {
+    public WindowFrame(Student student) {
+        this.student = student;
         initComponents();
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -358,10 +364,11 @@ public class WindowFrame extends javax.swing.JFrame {
         isActive = false;
         
 
-        UserProfilePanel profilePanel = new UserProfilePanel();
+        UserProfilePanel profilePanel = new UserProfilePanel(this.student);
+        
+        clear();
         ContentPanel.add(profilePanel);
-        ContentPanel.repaint();
-        ContentPanel.revalidate();
+        
         
         /*
             You need to call repaint() and revalidate() both in 
@@ -369,6 +376,11 @@ public class WindowFrame extends javax.swing.JFrame {
         */
     }//GEN-LAST:event_ProfileSectionMouseClicked
 
+    private void clear() {
+        ContentPanel.repaint();
+        ContentPanel.revalidate();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -400,7 +412,7 @@ public class WindowFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new WindowFrame().setVisible(true);
+//                new WindowFrame().setVisible(true);
             }
         });
     }
