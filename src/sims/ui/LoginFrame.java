@@ -134,7 +134,7 @@ public class LoginFrame extends javax.swing.JFrame {
         try {
             var conn = DatabaseConnector.getConnection();
             var stmt = conn.createStatement();
-            String query = "SELECT * FROM student WHERE studentNumber = '%s' OR email = '%s' AND password = '%s'".formatted(studentNumberOrEmailField.getText(), studentNumberOrEmailField.getText(), password);
+            String query = "SELECT * FROM student WHERE password = '%s' AND studentNumber = '%s' OR email = '%s'".formatted(password, studentNumberOrEmailField.getText(), studentNumberOrEmailField.getText());
             var rs = stmt.executeQuery(query);
 
             // if there are no results returned
