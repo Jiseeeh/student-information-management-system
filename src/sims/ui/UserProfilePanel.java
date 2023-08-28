@@ -284,6 +284,7 @@ public class UserProfilePanel extends javax.swing.JPanel {
                 lastNameField.setText(studentResultSet.getString("lastName"));
             }
             
+            studentResultSet.close();
             
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(UserProfilePanel.class.getName()).log(Level.SEVERE, null, ex);
