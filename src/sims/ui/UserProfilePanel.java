@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import sims.database.DatabaseConnector;
+import sims.helper.Validator;
 import sims.model.Student;
 
 /**
@@ -17,13 +18,16 @@ import sims.model.Student;
  */
 public class UserProfilePanel extends javax.swing.JPanel {
 
+    private Student student;
     /**
      * Creates new form UserProfilePanel
+     *
      * @param student
      */
     public UserProfilePanel(Student student) {
+        this.student = student;
         initComponents();
-        initStudentData(student);
+        initStudentData();
     }
 
     /**
@@ -253,46 +257,95 @@ public class UserProfilePanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void initStudentData (Student student) {
-        try(var conn = DatabaseConnector.getConnection()){
-            String selectStudentQuery = "SELECT * FROM student INNER JOIN student_info on student.id = student_info.studentId WHERE studentNumber = %s".formatted(student.getStudentNumber());
-            var stmt = conn.createStatement();
-            var studentResultSet = stmt.executeQuery(selectStudentQuery);
-            
-            // if there are no results returned
-            if (!studentResultSet.isBeforeFirst()) {
-                Modal.show("No student found!", "Notice", JOptionPane.WARNING_MESSAGE);
-                return;
-            }
-            
-            while(studentResultSet.next()) {
+    private void initStudentData() {         
                 //======================================================================
                 // NULLABLE COLUMNS
                 //======================================================================                
-                if (studentResultSet.getString("middleName") != null) middleNameField.setText(studentResultSet.getString("middleName"));
-                if (studentResultSet.getString("sex") != null) sexComboBox.setSelectedItem(studentResultSet.getString("sex"));
-                if (studentResultSet.getString("contactNumber") != null) contactNoField.setText(studentResultSet.getString("contactNumber"));
-                if (studentResultSet.getString("birthday") != null) birthdayField.setText(studentResultSet.getString("birthday"));
-                if (studentResultSet.getString("guardianName") != null) guardianNameField.setText(studentResultSet.getString("guardianName"));
-                if (studentResultSet.getString("alternativeEmail") != null) altEmailField.setText(studentResultSet.getString("alternativeEmail"));
-                if (studentResultSet.getString("address") != null) addressField.setText(studentResultSet.getString("address"));
-                
-                studentNumber.setText(studentResultSet.getString("studentNumber"));
-                studentInstitutionalEmail.setText(studentResultSet.getString("email"));
-                firstNameField.setText(studentResultSet.getString("firstName"));
-                passwordField.setText(studentResultSet.getString("password"));
-                lastNameField.setText(studentResultSet.getString("lastName"));
-            }
+                if (student.getMiddleName() != null) middleNameField.setText(student.getMiddleName());
+                if (student.getSex() != null) sexComboBox.setSelectedItem(student.getSex());
+                if (student.getContactNumber() != null) contactNoField.setText(student.getContactNumber());
+                if (student.getBirthday() != null) birthdayField.setText(student.getBirthday());
+                if (student.getGuardianName() != null) guardianNameField.setText(student.getGuardianName());
+                if (student.getEmail().getReserveEmail()!= null) altEmailField.setText(student.getEmail().getReserveEmail());
+                if (student.getAddress() != null) addressField.setText(student.getAddress());
+
+                //======================================================================
+                // ABSOLUTE COLUMNS
+                //======================================================================
+                studentNumber.setText(student.getStudentNumber());
+                studentInstitutionalEmail.setText(student.getEmail().getEmail());
+                firstNameField.setText(student.getEmail().getFirstName());
+                passwordField.setText(student.getEmail().getPassword());
+                lastNameField.setText(student.getEmail().getLastName());
+
+                //======================================================================
+                // DISABLED FIELDS
+                //======================================================================  
+                firstNameField.setFocusable(false);
+                lastNameField.setFocusable(false);
+    }
+
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        // validate fields
+        var validator = new Validator();
+
+        if (!validator.isValidText(middleNameField.getText())) {
+            Modal.show("Middle name is not valid.", "Invalid input", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (!validator.isValidText(new String(passwordField.getPassword()))) {
+            Modal.show("Password cannot be invalid.", "Invalid input", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (!contactNoField.getText().matches("^09\\d{9}$")) {
+            Modal.show("Contact number is not valid.", "Invalid input", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (!birthdayField.getText().matches("^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])-(\\d{4})$")) {
+            Modal.show("Birthday is not valid.", "Invalid input", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (!validator.isValidText(guardianNameField.getText())) {
+            Modal.show("Guardian name is not valid.", "Invalid input", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (!altEmailField.getText().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            Modal.show("Alternative email is not valid.", "Invalid input", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (!validator.isValidText(addressField.getText())) {
+            Modal.show("Address is not valid.", "Invalid input", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        try(var conn = DatabaseConnector.getConnection()) {
+            String updateStudentQuery = "UPDATE student SET middleName = '%s', alternativeEmail = '%s', password = '%s', sex = '%s' WHERE studentNumber = %s"
+                    .formatted(middleNameField.getText(),
+                            altEmailField.getText(),
+                            new String(passwordField.getPassword()),
+                            sexComboBox.getSelectedItem().toString(),
+                            studentNumber.getText());
+            String updateStudentInfoQuery = "UPDATE student_info SET address = '%s', guardianName = '%s', birthday = '%s', contactNumber = '%s' WHERE studentId = %d"
+                    .formatted(addressField.getText(),
+                            guardianNameField.getText(),
+                            birthdayField.getText(),
+                            contactNoField.getText(),
+                            student.getId());
             
-            studentResultSet.close();
+            var updateStudentStmt = conn.prepareStatement(updateStudentQuery);
+            var updateStudentInfoStmt = conn.prepareStatement(updateStudentInfoQuery);
+            
+            int updateStudentAffectedRows = updateStudentStmt.executeUpdate();
+            int updateStudentInfoAffectedRows = updateStudentInfoStmt.executeUpdate();
+            
+            System.out.println("student table affected " + updateStudentAffectedRows + " rows");
+            System.out.println("student_info table affected " + updateStudentInfoAffectedRows + " rows");
+            
+            Modal.show("Saved", "Update success", JOptionPane.INFORMATION_MESSAGE);
             
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(UserProfilePanel.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_saveButtonActionPerformed
 
 
