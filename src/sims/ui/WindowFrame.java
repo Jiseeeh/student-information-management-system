@@ -4,6 +4,7 @@
  */
 package sims.ui;
 
+import sims.model.Colors;
 import sims.model.Student;
 
 /**
