@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import sims.database.DatabaseConnector;
+import sims.helper.Validator;
 import sims.model.Student;
 
 /**
@@ -121,12 +122,14 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         String password = new String(passwordField.getPassword());
-        if (!isValid(studentNumberOrEmailField.getText())) {
+        var validator = new Validator();
+        
+        if (!validator.isValidText(studentNumberOrEmailField.getText())) {
             Modal.show("Student/Email field must have a value.", "Invalid Input", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        if (!isValid(password)) {
+        if (!validator.isValidText(password)) {
             Modal.show("Password field must be valid.", "Invalid Input", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -144,7 +147,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
             var student = new Student(); // maybe we can serialize/save this to save the current logged in user.
             while (studentResultSet.next()) {
-
+                student.setId(studentResultSet.getInt("id"));
                 student.setFirstName(studentResultSet.getString("firstName"));
                 student.setLastName(studentResultSet.getString("lastName"));
                 student.setDepartment(studentResultSet.getString("department"));
@@ -166,10 +169,6 @@ public class LoginFrame extends javax.swing.JFrame {
             Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_loginButtonActionPerformed
-
-    private boolean isValid(String input) {
-        return !(input == null || input.trim().equals("") || input.matches("\\s+"));
-    }
 
     /**
      * @param args the command line arguments

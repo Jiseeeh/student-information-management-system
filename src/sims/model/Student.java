@@ -21,6 +21,7 @@ public class Student {
     private String studentNumber;
     private String email;
     private String password;
+    private int id;
 
     @Override
     public String toString() {
@@ -218,5 +219,19 @@ public class Student {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 }
