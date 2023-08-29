@@ -22,6 +22,12 @@ public class WindowFrame extends javax.swing.JFrame {
     public WindowFrame(Student student) {
         this.student = student;
         initComponents();
+        
+        var landingPanel = new LandingPanel(student);
+        
+        ContentPanel.repaint();
+        ContentPanel.revalidate();
+        ContentPanel.add(landingPanel);
     }
 
 
@@ -375,6 +381,7 @@ public class WindowFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ProfileSectionMouseClicked
 
     private void clear() {
+        ContentPanel.removeAll();
         ContentPanel.repaint();
         ContentPanel.revalidate();
     }
