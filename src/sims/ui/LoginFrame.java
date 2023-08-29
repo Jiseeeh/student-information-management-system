@@ -53,7 +53,7 @@ public class LoginFrame extends javax.swing.JFrame {
         loginLabel.setAlignmentX(0.5F);
 
         iconLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        iconLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\johnc\\Downloads\\student.png")); // NOI18N
+        iconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sims/assets/student.png"))); // NOI18N
 
         studentNumberOrEmailLabel.setLabelFor(studentNumberOrEmailField);
         studentNumberOrEmailLabel.setText("Student Number / Email");

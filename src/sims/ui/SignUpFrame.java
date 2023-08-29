@@ -55,7 +55,7 @@ public class SignUpFrame extends javax.swing.JFrame {
         signUpLabel.setAlignmentX(0.5F);
 
         iconLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        iconLabel.setIcon(new javax.swing.ImageIcon("C:\\Users\\johnc\\Downloads\\student.png")); // NOI18N
+        iconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sims/assets/student.png"))); // NOI18N
 
         firstNameLabel.setLabelFor(firstNameField);
         firstNameLabel.setText("First Name");
@@ -67,7 +67,6 @@ public class SignUpFrame extends javax.swing.JFrame {
         studentNumberLabel.setText("Student  Number");
 
         signUpButton.setText("Sign Up");
-
         signUpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 signUpButtonActionPerformed(evt);
