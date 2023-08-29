@@ -13,7 +13,7 @@ import sims.model.Student;
  */
 public class WindowFrame extends javax.swing.JFrame {
     public boolean isActive;
-    private Student student;
+    private final Student student;
 
     /**
      * Creates new form MainFrame
