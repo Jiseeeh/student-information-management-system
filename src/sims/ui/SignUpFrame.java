@@ -9,7 +9,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import sims.database.DatabaseConnector;
+import sims.helper.Validator;
 import sims.model.Email;
+
 /**
  *
  * @author johnc
@@ -146,12 +148,14 @@ public class SignUpFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void signUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpButtonActionPerformed
-        if (!isValid(firstNameField.getText())) {
+        var validator = new Validator();
+        
+        if (!validator.isValidText(firstNameField.getText())) {
             Modal.show("First Name must be valid.", "Invalid First Name", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        if (!isValid(lastNameField.getText())) {
+        if (!validator.isValidText(lastNameField.getText())) {
             Modal.show("Last Name must be valid.", "Invalid Last Name", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -165,21 +169,43 @@ public class SignUpFrame extends javax.swing.JFrame {
         var email = new Email(firstNameField.getText(), lastNameField.getText(), departmentComboBox.getSelectedItem().toString());
         System.out.println(email.showInfo());
 
-        try {
-            var conn = DatabaseConnector.getConnection();
+        String studentQuery = "INSERT INTO student (firstName,lastName,department,studentNumber,email,password) VALUES('%s','%s','%s','%s','%s','%s')"
+                .formatted(email.getFirstName(),
+                        email.getLastName(),
+                        email.getDepartment(),
+                        studentNumberField.getText(),
+                        email.getEmail(),
+                        email.getPassword());
+        
+        try (var conn = DatabaseConnector.getConnection();
+            var insertStudentStmt = conn.prepareStatement(studentQuery)) {
 
-            String query = "INSERT INTO student (firstName,lastName,department,studentNumber,email,password) VALUES('%s','%s','%s','%s','%s','%s')".formatted(email.getFirstName(), email.getLastName(), email.getDepartment(), studentNumberField.getText(), email.getEmail(), email.getPassword());
-
-            var preparedStmt = conn.prepareStatement(query);
-
-            int rowsInserted = preparedStmt.executeUpdate();
+            int rowsInserted = insertStudentStmt.executeUpdate();
 
             if (rowsInserted > 0) {
-                System.out.println("Sign up success!");
-                Modal.show("Success", "Sign up Succcess, you can now login.", JOptionPane.INFORMATION_MESSAGE);
+                System.out.println("Student inserted into the Database.");
+                Modal.show("Success, you can now login.", "Login Success", JOptionPane.INFORMATION_MESSAGE);
 
-                conn.close();
-                preparedStmt.close();
+                var keys = insertStudentStmt.getGeneratedKeys();
+
+                if (keys.next()) {
+                    int id = keys.getInt(1);
+                    System.out.println("Inserted id: " + id);
+
+                    String studentInfoQuery = "INSERT INTO student_info (studentId) VALUES (%d)".formatted(id);
+                    var insertStudentInfoStmt = conn.prepareStatement(studentInfoQuery);
+
+                    int insertedStudentInfoRows = insertStudentInfoStmt.executeUpdate();
+
+                    if (insertedStudentInfoRows > 0) {
+                        System.out.println("Student Info was INSERTED into the Database.");
+                    } else {
+                        System.out.println("Student Info was NOT INSERTED into the Database");
+                    }
+
+                    insertStudentInfoStmt.close();
+
+                }
                 this.dispose();
             }
 
@@ -190,12 +216,8 @@ public class SignUpFrame extends javax.swing.JFrame {
             Logger.getLogger(SignUpFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-
     }//GEN-LAST:event_signUpButtonActionPerformed
 
-    private boolean isValid(String input) {
-        return !(input == null || input.trim().equals("") || input.matches("\\s+"));
-    }
     /**
      * @param args the command line arguments
      */

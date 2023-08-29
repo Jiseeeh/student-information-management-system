@@ -9,6 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import sims.database.DatabaseConnector;
+import sims.helper.Validator;
+import sims.model.Email;
 import sims.model.Student;
 
 /**
@@ -121,51 +123,67 @@ public class LoginFrame extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         String password = new String(passwordField.getPassword());
-        if (!isValid(studentNumberOrEmailField.getText())) {
+        var validator = new Validator();
+        
+        if (!validator.isValidText(studentNumberOrEmailField.getText())) {
             Modal.show("Student/Email field must have a value.", "Invalid Input", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        if (!isValid(password)) {
+        if (!validator.isValidText(password)) {
             Modal.show("Password field must be valid.", "Invalid Input", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        try {
-            var conn = DatabaseConnector.getConnection();
-            var stmt = conn.createStatement();
-            String query = "SELECT * FROM student WHERE password = '%s' AND studentNumber = '%s' OR email = '%s'".formatted(password, studentNumberOrEmailField.getText(), studentNumberOrEmailField.getText());
-            var rs = stmt.executeQuery(query);
-
+        String selectStudentQuery = "SELECT * FROM student INNER JOIN student_info ON student.id = student_info.studentId WHERE password = '%s' AND studentNumber = '%s' OR email = '%s'".formatted(password, studentNumberOrEmailField.getText(), studentNumberOrEmailField.getText());
+        try (var conn = DatabaseConnector.getConnection();
+             var stmt = conn.createStatement();
+             var studentResultSet = stmt.executeQuery(selectStudentQuery);) {
+            
             // if there are no results returned
-            if (!rs.isBeforeFirst()) {
+            if (!studentResultSet.isBeforeFirst()) {
                 Modal.show("No student found!", "Notice", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-
+            
+            
             var student = new Student(); // maybe we can serialize/save this to save the current logged in user.
-            while (rs.next()) {
-
-                student.setFirstName(rs.getString("firstName"));
-                student.setLastName(rs.getString("lastName"));
-                student.setDepartment(rs.getString("department"));
-                student.setStudentNumber(rs.getString("studentNumber"));
-                student.setEmail(rs.getString("email"));
-                student.setPassword(rs.getString("password"));
+            while (studentResultSet.next()) {
+                var studentEmail = new Email(studentResultSet.getString("firstName"), studentResultSet.getString("lastName"), studentResultSet.getString("department"));
+                
+                //======================================================================
+                // ABSOLUTE COLUMNS
+                //======================================================================  
+                studentEmail.setPassword(studentResultSet.getString("password"));
+                student.setEmail(studentEmail);
+                student.setId(studentResultSet.getInt("id"));
+                student.setStudentNumber(studentResultSet.getString("studentNumber"));
+                
+                //======================================================================
+                // NULLABLE COLUMNS
+                //======================================================================    
+                if (studentResultSet.getString("middleName") != null) student.setMiddleName(studentResultSet.getString("middleName"));
+                if (studentResultSet.getString("sex") != null) student.setSex(studentResultSet.getString("sex"));
+                if (studentResultSet.getString("contactNumber") != null) student.setContactNumber(studentResultSet.getString("contactNumber"));
+                if (studentResultSet.getString("birthday") != null) student.setBirthday(studentResultSet.getString("birthday"));
+                if (studentResultSet.getString("guardianName") != null) student.setGuardianName(studentResultSet.getString("guardianName"));
+                if (studentResultSet.getString("alternativeEmail") != null) studentEmail.setReserveEmail(studentResultSet.getString("alternativeEmail"));
+                if (studentResultSet.getString("address") != null) student.setAddress(studentResultSet.getString("address"));
             }
-
+            
             System.out.println(student);
-
-            conn.close();
-            rs.close();
+            Modal.show("You will now be redirected to the dashboard.", "Login success!", JOptionPane.INFORMATION_MESSAGE);
+            
+            var homepage = new WindowFrame(student);
+            homepage.setLocationRelativeTo(null);
+            homepage.setVisible(true);
+            
+            this.dispose();
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 
-    private boolean isValid(String input) {
-        return !(input == null || input.trim().equals("") || input.matches("\\s+"));
-    }
     /**
      * @param args the command line arguments
      */

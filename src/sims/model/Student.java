@@ -9,9 +9,7 @@ package sims.model;
  * @author johnc
  */
 public class Student {
-    private String firstName;
-    private String lastName;
-    private String department;
+    private Email email;
     private String middleName;
     private String address;
     private String sex;
@@ -19,79 +17,20 @@ public class Student {
     private String birthday;
     private String contactNumber;
     private String studentNumber;
-    private String email;
-    private String password;
+    private int id;
 
-    @Override
-    public String toString() {
-        return """
-               \tStudent Info
-               First Name: %s
-               Last Name: %s
-               Middle Name: %s
-               Student Number: %s
-               Email: %s
-               Password: %s
-               Department: %s
-               Address: %s
-               Sex: %s
-               Guardian Name: %s
-               Birthday: %s
-               Contact No: %s
-               """.formatted(this.firstName,this.lastName,this.middleName,this.studentNumber,this.email,this.password,this.department,this.address,this.sex,this.guardianName,this.getBirthday(),this.getContactNumber());
-    }
-
-    
-    public Student() {
-        
-    }
-    
-    public Student(String firstName, String lastName, String studentNumber) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.studentNumber = studentNumber;
+    /**
+     * @return the email
+     */
+    public Email getEmail() {
+        return email;
     }
 
     /**
-     * @return the firstName
+     * @param email the email to set
      */
-    public String getFirstName() {
-        return firstName;
-    }
-
-    /**
-     * @param firstName the firstName to set
-     */
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    /**
-     * @return the lastName
-     */
-    public String getLastName() {
-        return lastName;
-    }
-
-    /**
-     * @param lastName the lastName to set
-     */
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    /**
-     * @return the department
-     */
-    public String getDepartment() {
-        return department;
-    }
-
-    /**
-     * @param department the department to set
-     */
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setEmail(Email email) {
+        this.email = email;
     }
 
     /**
@@ -193,30 +132,18 @@ public class Student {
     }
 
     /**
-     * @return the email
+     * @return the id
      */
-    public String getEmail() {
-        return email;
+    public int getId() {
+        return id;
     }
 
     /**
-     * @param email the email to set
+     * @param id the id to set
      */
-    public void setEmail(String email) {
-        this.email = email;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    /**
-     * @return the password
-     */
-    public String getPassword() {
-        return password;
+    
     }
-
-    /**
-     * @param password the password to set
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-}

@@ -4,22 +4,26 @@
  */
 package sims.ui;
 
+import sims.model.Colors;
+import sims.model.Student;
+
 /**
  *
  * @author Jireh
  */
 public class WindowFrame extends javax.swing.JFrame {
-
-    // Colors class which containts the custom colors
-    Colors color = new Colors();
     public boolean isActive;
+    private final Student student;
 
     /**
      * Creates new form MainFrame
+     * @param student
      */
-    public WindowFrame() {
+    public WindowFrame(Student student) {
+        this.student = student;
         initComponents();
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -312,45 +316,45 @@ public class WindowFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ProfileSectionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProfileSectionMouseEntered
-        ProfileSection.setBackground(color.hoverColor);
+        ProfileSection.setBackground(Colors.HOVER_COLOR);
     }//GEN-LAST:event_ProfileSectionMouseEntered
 
     private void ProfileSectionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProfileSectionMouseExited
         if (isActive) {
-            ProfileSection.setBackground(color.primaryColor);
+            ProfileSection.setBackground(Colors.PRIMARY_COLOR);
         }     
     }//GEN-LAST:event_ProfileSectionMouseExited
 
     private void CoursesSectionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CoursesSectionMouseEntered
-        CoursesSection.setBackground(color.hoverColor);
+        CoursesSection.setBackground(Colors.HOVER_COLOR);
     }//GEN-LAST:event_CoursesSectionMouseEntered
 
     private void CoursesSectionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CoursesSectionMouseExited
-        CoursesSection.setBackground(color.primaryColor);
+        CoursesSection.setBackground(Colors.PRIMARY_COLOR);
     }//GEN-LAST:event_CoursesSectionMouseExited
 
     private void PayFeesSectionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PayFeesSectionMouseEntered
-        PayFeesSection.setBackground(color.hoverColor);
+        PayFeesSection.setBackground(Colors.HOVER_COLOR);
     }//GEN-LAST:event_PayFeesSectionMouseEntered
 
     private void PayFeesSectionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PayFeesSectionMouseExited
-        PayFeesSection.setBackground(color.primaryColor);
+        PayFeesSection.setBackground(Colors.PRIMARY_COLOR);
     }//GEN-LAST:event_PayFeesSectionMouseExited
 
     private void TOR_ReportSectionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TOR_ReportSectionMouseEntered
-        TOR_ReportSection.setBackground(color.hoverColor);
+        TOR_ReportSection.setBackground(Colors.HOVER_COLOR);
     }//GEN-LAST:event_TOR_ReportSectionMouseEntered
 
     private void TOR_ReportSectionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TOR_ReportSectionMouseExited
-        TOR_ReportSection.setBackground(color.primaryColor);
+        TOR_ReportSection.setBackground(Colors.PRIMARY_COLOR);
     }//GEN-LAST:event_TOR_ReportSectionMouseExited
 
     private void COR_ReportSectionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_COR_ReportSectionMouseEntered
-        COR_ReportSection.setBackground(color.hoverColor);
+        COR_ReportSection.setBackground(Colors.HOVER_COLOR);
     }//GEN-LAST:event_COR_ReportSectionMouseEntered
 
     private void COR_ReportSectionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_COR_ReportSectionMouseExited
-        COR_ReportSection.setBackground(color.primaryColor);
+        COR_ReportSection.setBackground(Colors.PRIMARY_COLOR);
 
     }//GEN-LAST:event_COR_ReportSectionMouseExited
 
@@ -358,10 +362,11 @@ public class WindowFrame extends javax.swing.JFrame {
         isActive = false;
         
 
-        UserProfilePanel profilePanel = new UserProfilePanel();
+        UserProfilePanel profilePanel = new UserProfilePanel(this.student);
+        
+        clear();
         ContentPanel.add(profilePanel);
-        ContentPanel.repaint();
-        ContentPanel.revalidate();
+        
         
         /*
             You need to call repaint() and revalidate() both in 
@@ -369,6 +374,11 @@ public class WindowFrame extends javax.swing.JFrame {
         */
     }//GEN-LAST:event_ProfileSectionMouseClicked
 
+    private void clear() {
+        ContentPanel.repaint();
+        ContentPanel.revalidate();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -400,7 +410,7 @@ public class WindowFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new WindowFrame().setVisible(true);
+//                new WindowFrame().setVisible(true);
             }
         });
     }
