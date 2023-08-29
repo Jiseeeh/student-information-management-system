@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import sims.database.DatabaseConnector;
 import sims.helper.Validator;
+import sims.model.Email;
 import sims.model.Student;
 
 /**
@@ -134,28 +135,42 @@ public class LoginFrame extends javax.swing.JFrame {
             return;
         }
 
-        try (var conn = DatabaseConnector.getConnection()) {
-            var stmt = conn.createStatement();
-            String selectStudentQuery = "SELECT * FROM student WHERE password = '%s' AND studentNumber = '%s' OR email = '%s'".formatted(password, studentNumberOrEmailField.getText(), studentNumberOrEmailField.getText());
-            var studentResultSet = stmt.executeQuery(selectStudentQuery);
-
+        String selectStudentQuery = "SELECT * FROM student INNER JOIN student_info ON student.id = student_info.studentId WHERE password = '%s' AND studentNumber = '%s' OR email = '%s'".formatted(password, studentNumberOrEmailField.getText(), studentNumberOrEmailField.getText());
+        try (var conn = DatabaseConnector.getConnection();
+             var stmt = conn.createStatement();
+             var studentResultSet = stmt.executeQuery(selectStudentQuery);) {
+            
             // if there are no results returned
             if (!studentResultSet.isBeforeFirst()) {
                 Modal.show("No student found!", "Notice", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-
+            
+            
             var student = new Student(); // maybe we can serialize/save this to save the current logged in user.
             while (studentResultSet.next()) {
+                var studentEmail = new Email(studentResultSet.getString("firstName"), studentResultSet.getString("lastName"), studentResultSet.getString("department"));
+                
+                //======================================================================
+                // ABSOLUTE COLUMNS
+                //======================================================================  
+                studentEmail.setPassword(studentResultSet.getString("password"));
+                student.setEmail(studentEmail);
                 student.setId(studentResultSet.getInt("id"));
-                student.setFirstName(studentResultSet.getString("firstName"));
-                student.setLastName(studentResultSet.getString("lastName"));
-                student.setDepartment(studentResultSet.getString("department"));
                 student.setStudentNumber(studentResultSet.getString("studentNumber"));
-                student.setEmail(studentResultSet.getString("email"));
-                student.setPassword(studentResultSet.getString("password"));
+                
+                //======================================================================
+                // NULLABLE COLUMNS
+                //======================================================================    
+                if (studentResultSet.getString("middleName") != null) student.setMiddleName(studentResultSet.getString("middleName"));
+                if (studentResultSet.getString("sex") != null) student.setSex(studentResultSet.getString("sex"));
+                if (studentResultSet.getString("contactNumber") != null) student.setContactNumber(studentResultSet.getString("contactNumber"));
+                if (studentResultSet.getString("birthday") != null) student.setBirthday(studentResultSet.getString("birthday"));
+                if (studentResultSet.getString("guardianName") != null) student.setGuardianName(studentResultSet.getString("guardianName"));
+                if (studentResultSet.getString("alternativeEmail") != null) studentEmail.setReserveEmail(studentResultSet.getString("alternativeEmail"));
+                if (studentResultSet.getString("address") != null) student.setAddress(studentResultSet.getString("address"));
             }
-
+            
             System.out.println(student);
             Modal.show("You will now be redirected to the dashboard.", "Login success!", JOptionPane.INFORMATION_MESSAGE);
             
@@ -163,7 +178,6 @@ public class LoginFrame extends javax.swing.JFrame {
             homepage.setLocationRelativeTo(null);
             homepage.setVisible(true);
             
-            studentResultSet.close();
             this.dispose();
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
