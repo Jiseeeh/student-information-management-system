@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import sims.database.DatabaseConnector;
+import sims.helper.Validator;
 import sims.model.Email;
 
 /**
@@ -147,12 +148,14 @@ public class SignUpFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void signUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpButtonActionPerformed
-        if (!isValid(firstNameField.getText())) {
+        var validator = new Validator();
+        
+        if (!validator.isValidText(firstNameField.getText())) {
             Modal.show("First Name must be valid.", "Invalid First Name", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        if (!isValid(lastNameField.getText())) {
+        if (!validator.isValidText(lastNameField.getText())) {
             Modal.show("Last Name must be valid.", "Invalid Last Name", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -166,10 +169,16 @@ public class SignUpFrame extends javax.swing.JFrame {
         var email = new Email(firstNameField.getText(), lastNameField.getText(), departmentComboBox.getSelectedItem().toString());
         System.out.println(email.showInfo());
 
-        try (var conn = DatabaseConnector.getConnection()) {
-            String studentQuery = "INSERT INTO student (firstName,lastName,department,studentNumber,email,password) VALUES('%s','%s','%s','%s','%s','%s')".formatted(email.getFirstName(), email.getLastName(), email.getDepartment(), studentNumberField.getText(), email.getEmail(), email.getPassword());
-
-            var insertStudentStmt = conn.prepareStatement(studentQuery);
+        String studentQuery = "INSERT INTO student (firstName,lastName,department,studentNumber,email,password) VALUES('%s','%s','%s','%s','%s','%s')"
+                .formatted(email.getFirstName(),
+                        email.getLastName(),
+                        email.getDepartment(),
+                        studentNumberField.getText(),
+                        email.getEmail(),
+                        email.getPassword());
+        
+        try (var conn = DatabaseConnector.getConnection();
+            var insertStudentStmt = conn.prepareStatement(studentQuery)) {
 
             int rowsInserted = insertStudentStmt.executeUpdate();
 
@@ -197,7 +206,6 @@ public class SignUpFrame extends javax.swing.JFrame {
                     insertStudentInfoStmt.close();
 
                 }
-                insertStudentStmt.close();
                 this.dispose();
             }
 
@@ -209,10 +217,6 @@ public class SignUpFrame extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_signUpButtonActionPerformed
-
-    private boolean isValid(String input) {
-        return !(input == null || input.trim().equals("") || input.matches("\\s+"));
-    }
 
     /**
      * @param args the command line arguments
