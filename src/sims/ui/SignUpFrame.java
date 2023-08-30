@@ -45,6 +45,8 @@ public class SignUpFrame extends javax.swing.JFrame {
         signUpButton = new javax.swing.JButton();
         departmentLabel = new javax.swing.JLabel();
         departmentComboBox = new javax.swing.JComboBox<>();
+        yearLevelLabel = new javax.swing.JLabel();
+        yearLevelComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sign Up");
@@ -77,6 +79,11 @@ public class SignUpFrame extends javax.swing.JFrame {
         departmentLabel.setText("Department");
 
         departmentComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DOA", "DCS", "DOC", "DOE" }));
+
+        yearLevelLabel.setLabelFor(departmentComboBox);
+        yearLevelLabel.setText("Year Level");
+
+        yearLevelComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -112,7 +119,11 @@ public class SignUpFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(firstNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(181, 181, 181))
-                    .addComponent(firstNameField))
+                    .addComponent(firstNameField)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(yearLevelLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(yearLevelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(87, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -138,6 +149,10 @@ public class SignUpFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(departmentLabel)
                     .addComponent(departmentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(yearLevelLabel)
+                    .addComponent(yearLevelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
                 .addComponent(signUpButton)
                 .addGap(47, 47, 47))
@@ -168,13 +183,14 @@ public class SignUpFrame extends javax.swing.JFrame {
         var email = new Email(firstNameField.getText(), lastNameField.getText(), departmentComboBox.getSelectedItem().toString());
         System.out.println(email.showInfo());
 
-        String studentQuery = "INSERT INTO student (firstName,lastName,department,studentNumber,email,password) VALUES('%s','%s','%s','%s','%s','%s')"
+        String studentQuery = "INSERT INTO student (firstName,lastName,department,studentNumber,email,password,yearLevel) VALUES('%s','%s','%s','%s','%s','%s','%s')"
                 .formatted(email.getFirstName(),
                         email.getLastName(),
                         email.getDepartment(),
                         studentNumberField.getText(),
                         email.getEmail(),
-                        email.getPassword());
+                        email.getPassword(),
+                        yearLevelComboBox.getSelectedItem().toString());
         
         try (var conn = DatabaseConnector.getConnection();
             var insertStudentStmt = conn.prepareStatement(studentQuery)) {
@@ -203,6 +219,7 @@ public class SignUpFrame extends javax.swing.JFrame {
                     }
 
                     insertStudentInfoStmt.close();
+                    // TODO: INSERT DEFAULT SUBJECTS
 
                 }
                 this.dispose();
@@ -265,5 +282,7 @@ public class SignUpFrame extends javax.swing.JFrame {
     private javax.swing.JLabel signUpLabel;
     private javax.swing.JTextField studentNumberField;
     private javax.swing.JLabel studentNumberLabel;
+    private javax.swing.JComboBox<String> yearLevelComboBox;
+    private javax.swing.JLabel yearLevelLabel;
     // End of variables declaration//GEN-END:variables
 }

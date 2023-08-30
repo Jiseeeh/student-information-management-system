@@ -62,6 +62,11 @@
                       <EmptySpace min="181" pref="181" max="-2" attributes="0"/>
                   </Group>
                   <Component id="firstNameField" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="yearLevelLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="yearLevelComboBox" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace pref="87" max="32767" attributes="0"/>
           </Group>
@@ -90,6 +95,11 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="departmentLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="departmentComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="yearLevelLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="yearLevelComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
               <Component id="signUpButton" min="-2" max="-2" attributes="0"/>
@@ -171,6 +181,29 @@
             <StringItem index="1" value="DCS"/>
             <StringItem index="2" value="DOC"/>
             <StringItem index="3" value="DOE"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="yearLevelLabel">
+      <Properties>
+        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="departmentComboBox"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Year Level"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="yearLevelComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="1"/>
+            <StringItem index="1" value="2"/>
+            <StringItem index="2" value="3"/>
+            <StringItem index="3" value="4"/>
           </StringArray>
         </Property>
       </Properties>

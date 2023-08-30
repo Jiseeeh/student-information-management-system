@@ -17,6 +17,7 @@ public class Student {
     private String birthday;
     private String contactNumber;
     private String studentNumber;
+    private String yearLevel;
     private int id;
 
     /**
@@ -143,6 +144,20 @@ public class Student {
      */
     public void setId(int id) {
         this.id = id;
+    }
+
+    /**
+     * @return the yearLevel
+     */
+    public String getYearLevel() {
+        return yearLevel;
+    }
+
+    /**
+     * @param yearLevel the yearLevel to set
+     */
+    public void setYearLevel(String yearLevel) {
+        this.yearLevel = yearLevel;
     }
 
     
