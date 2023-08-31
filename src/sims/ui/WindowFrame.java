@@ -120,6 +120,9 @@ public class WindowFrame extends javax.swing.JFrame {
         CoursesSection.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         CoursesSection.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         CoursesSection.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CoursesSectionMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 CoursesSectionMouseEntered(evt);
             }
@@ -379,6 +382,14 @@ public class WindowFrame extends javax.swing.JFrame {
             order to replace all the elements from your JPanel.
         */
     }//GEN-LAST:event_ProfileSectionMouseClicked
+
+    private void CoursesSectionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CoursesSectionMouseClicked
+        var c = new CoursePanel();
+        
+        clear();
+        
+        ContentPanel.add(c);
+    }//GEN-LAST:event_CoursesSectionMouseClicked
 
     private void clear() {
         ContentPanel.removeAll();
