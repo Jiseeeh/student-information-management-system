@@ -4,6 +4,8 @@
  */
 package sims.model;
 
+import java.util.List;
+
 /**
  *
  * @author johnc
@@ -18,6 +20,9 @@ public class Student {
     private String contactNumber;
     private String studentNumber;
     private String yearLevel;
+    private String currentSem;
+    private String section;
+    private List<StudentSubject> subjects;
     private int id;
 
     /**
@@ -158,6 +163,48 @@ public class Student {
      */
     public void setYearLevel(String yearLevel) {
         this.yearLevel = yearLevel;
+    }
+
+    /**
+     * @return the section
+     */
+    public String getSection() {
+        return section;
+    }
+
+    /**
+     * @param section the section to set
+     */
+    public void setSection(String section) {
+        this.section = section;
+    }
+
+    /**
+     * @return the subjects
+     */
+    public List<StudentSubject> getSubjects() {
+        return subjects;
+    }
+
+    /**
+     * @param subjects the subjects to set
+     */
+    public void setSubjects(List<StudentSubject> subjects) {
+        this.subjects = subjects;
+    }
+
+    /**
+     * @return the currentSem
+     */
+    public String getCurrentSem() {
+        return currentSem;
+    }
+
+    /**
+     * @param currentSem the currentSem to set
+     */
+    public void setCurrentSem(String currentSem) {
+        this.currentSem = currentSem;
     }
 
     
