@@ -46,8 +46,8 @@
     </Component>
     <Component class="javax.swing.JLabel" name="welcomeImageLabel">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/sims/assets/welcomeBG-640x426.jpg"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.ImageIcon(System.getProperty(&quot;user.dir&quot;) + &quot;\\src\\sims\\assets\\welcomeBG-640x426.jpg&quot;)" type="code"/>
         </Property>
       </Properties>
       <Constraints>

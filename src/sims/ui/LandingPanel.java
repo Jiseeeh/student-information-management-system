@@ -44,7 +44,7 @@ public class LandingPanel extends javax.swing.JPanel {
         welcomeNameLabel.setText("Arvie Fabila");
         add(welcomeNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 640, -1));
 
-        welcomeImageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sims/assets/welcomeBG-640x426.jpg"))); // NOI18N
+        welcomeImageLabel.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\sims\\assets\\welcomeBG-640x426.jpg"));
         add(welcomeImageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
