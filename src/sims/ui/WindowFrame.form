@@ -29,7 +29,7 @@
           <Group type="102" alignment="0" attributes="0">
               <Component id="SidebarContainer" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-              <Component id="ContentPanel" pref="1006" max="32767" attributes="0"/>
+              <Component id="ContentPanel" pref="1009" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -85,7 +85,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel7">
+            <Component class="javax.swing.JLabel" name="studentNameLabel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="JetBrains Mono" size="18" style="0"/>

@@ -24,7 +24,7 @@ public class WindowFrame extends javax.swing.JFrame {
         initComponents();
         
         var landingPanel = new LandingPanel(student);
-        
+        studentNameLabel.setText(student.getEmail().getLastName()+ ", " + student.getEmail().getFirstName());
         ContentPanel.repaint();
         ContentPanel.revalidate();
         ContentPanel.add(landingPanel);
@@ -43,7 +43,7 @@ public class WindowFrame extends javax.swing.JFrame {
         SidebarContainer = new javax.swing.JPanel();
         UserDetailsSection = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        studentNameLabel = new javax.swing.JLabel();
         SideBar = new javax.swing.JPanel();
         ProfileSection = new javax.swing.JPanel();
         Icon1 = new javax.swing.JLabel();
@@ -73,9 +73,9 @@ public class WindowFrame extends javax.swing.JFrame {
         jLabel6.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\sims\\assets\\default_user-icon.png"));
         UserDetailsSection.add(jLabel6);
 
-        jLabel7.setFont(new java.awt.Font("JetBrains Mono", 0, 18)); // NOI18N
-        jLabel7.setText("Jimboy, Fabila");
-        UserDetailsSection.add(jLabel7);
+        studentNameLabel.setFont(new java.awt.Font("JetBrains Mono", 0, 18)); // NOI18N
+        studentNameLabel.setText("Jimboy, Fabila");
+        UserDetailsSection.add(studentNameLabel);
 
         SideBar.setBackground(new java.awt.Color(217, 217, 217));
         SideBar.setLayout(new java.awt.GridLayout(5, 1, 0, 30));
@@ -307,7 +307,7 @@ public class WindowFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(SidebarContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(ContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1006, Short.MAX_VALUE))
+                .addComponent(ContentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1009, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,9 +323,7 @@ public class WindowFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ProfileSectionMouseEntered
 
     private void ProfileSectionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProfileSectionMouseExited
-        if (isActive) {
-            ProfileSection.setBackground(Colors.PRIMARY_COLOR);
-        }     
+        ProfileSection.setBackground(Colors.PRIMARY_COLOR);
     }//GEN-LAST:event_ProfileSectionMouseExited
 
     private void CoursesSectionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CoursesSectionMouseEntered
@@ -362,9 +360,6 @@ public class WindowFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_COR_ReportSectionMouseExited
 
     private void ProfileSectionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProfileSectionMouseClicked
-        isActive = false;
-        
-
         UserProfilePanel profilePanel = new UserProfilePanel(this.student);
         
         clear();
@@ -455,6 +450,6 @@ public class WindowFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel studentNameLabel;
     // End of variables declaration//GEN-END:variables
 }
