@@ -42,6 +42,8 @@ public class WindowFrame extends javax.swing.JFrame {
 
         SidebarContainer = new javax.swing.JPanel();
         UserDetailsSection = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         SideBar = new javax.swing.JPanel();
         ProfileSection = new javax.swing.JPanel();
         Icon1 = new javax.swing.JLabel();
@@ -66,7 +68,14 @@ public class WindowFrame extends javax.swing.JFrame {
         SidebarContainer.setBackground(new java.awt.Color(217, 217, 217));
 
         UserDetailsSection.setBackground(new java.awt.Color(217, 217, 217));
-        UserDetailsSection.setLayout(new java.awt.BorderLayout());
+        UserDetailsSection.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 25));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\sims\\assets\\default_user-icon.png"));
+        UserDetailsSection.add(jLabel6);
+
+        jLabel7.setFont(new java.awt.Font("JetBrains Mono", 0, 18)); // NOI18N
+        jLabel7.setText("Jimboy, Fabila");
+        UserDetailsSection.add(jLabel7);
 
         SideBar.setBackground(new java.awt.Color(217, 217, 217));
         SideBar.setLayout(new java.awt.GridLayout(5, 1, 0, 30));
@@ -85,34 +94,16 @@ public class WindowFrame extends javax.swing.JFrame {
                 ProfileSectionMouseExited(evt);
             }
         });
+        ProfileSection.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Icon1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Icon1.setText("Icon");
+        ProfileSection.add(Icon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 53, 60));
 
         jLabel2.setFont(new java.awt.Font("JetBrains Mono", 0, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Profile");
-
-        javax.swing.GroupLayout ProfileSectionLayout = new javax.swing.GroupLayout(ProfileSection);
-        ProfileSection.setLayout(ProfileSectionLayout);
-        ProfileSectionLayout.setHorizontalGroup(
-            ProfileSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ProfileSectionLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(Icon1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
-        );
-        ProfileSectionLayout.setVerticalGroup(
-            ProfileSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ProfileSectionLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(ProfileSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Icon1, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                    .addComponent(jLabel2))
-                .addContainerGap())
-        );
+        ProfileSection.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 138, -1));
 
         SideBar.add(ProfileSection);
 
@@ -120,6 +111,9 @@ public class WindowFrame extends javax.swing.JFrame {
         CoursesSection.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         CoursesSection.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         CoursesSection.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CoursesSectionMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 CoursesSectionMouseEntered(evt);
             }
@@ -162,6 +156,9 @@ public class WindowFrame extends javax.swing.JFrame {
         PayFeesSection.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         PayFeesSection.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PayFeesSection.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PayFeesSectionMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 PayFeesSectionMouseEntered(evt);
             }
@@ -380,6 +377,21 @@ public class WindowFrame extends javax.swing.JFrame {
         */
     }//GEN-LAST:event_ProfileSectionMouseClicked
 
+    private void CoursesSectionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CoursesSectionMouseClicked
+        var coursePanel = new CoursePanel();
+        
+        clear();
+        
+        ContentPanel.add(coursePanel);
+    }//GEN-LAST:event_CoursesSectionMouseClicked
+
+    private void PayFeesSectionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PayFeesSectionMouseClicked
+        var payFeesPanel = new PayFeesPanel();
+
+        clear();
+        ContentPanel.add(payFeesPanel);
+    }//GEN-LAST:event_PayFeesSectionMouseClicked
+
     private void clear() {
         ContentPanel.removeAll();
         ContentPanel.repaint();
@@ -442,5 +454,7 @@ public class WindowFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     // End of variables declaration//GEN-END:variables
 }
