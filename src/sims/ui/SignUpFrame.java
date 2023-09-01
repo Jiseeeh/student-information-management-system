@@ -4,6 +4,8 @@
  */
 package sims.ui;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -259,7 +261,10 @@ public class SignUpFrame extends javax.swing.JFrame {
 
             if (rowsInserted > 0) {
                 System.out.println("Student inserted into the Database.");
-                Modal.show("Success, you can now login.", "Login Success", JOptionPane.INFORMATION_MESSAGE);
+                Modal.show("Success, you can now login. The password is in your clipboard.", "Login Success", JOptionPane.INFORMATION_MESSAGE);
+                Toolkit.getDefaultToolkit()
+                        .getSystemClipboard()
+                        .setContents(new StringSelection(email.getPassword()), null);
 
                 var keys = insertStudentStmt.getGeneratedKeys();
 
