@@ -146,7 +146,7 @@ public class LoginFrame extends javax.swing.JFrame {
                 return;
             }
             
-            
+            // TODO OPTIONAL: set new student's info, current sem, section etc.
             var student = new Student(); // maybe we can serialize/save this to save the current logged in user.
             while (studentResultSet.next()) {
                 var studentEmail = new Email(studentResultSet.getString("firstName"), studentResultSet.getString("lastName"), studentResultSet.getString("department"));

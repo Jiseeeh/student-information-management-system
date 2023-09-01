@@ -4,13 +4,26 @@
  */
 package sims.ui;
 
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import sims.database.DatabaseConnector;
 import sims.helper.Validator;
+import sims.model.DASSubjects;
+import sims.model.DCSComSciSubjects;
+import sims.model.DOCSubjects;
+import sims.model.DOEMajorMathSubjects;
+import sims.Abstract.DefaultSubject;
+import sims.model.DCSInformationTechSubjects;
+import sims.model.DOEMajorEnglishSubjects;
 import sims.model.Email;
+import sims.model.Fee;
+import sims.model.StudentSubject;
 
 /**
  *
@@ -47,6 +60,12 @@ public class SignUpFrame extends javax.swing.JFrame {
         departmentComboBox = new javax.swing.JComboBox<>();
         yearLevelLabel = new javax.swing.JLabel();
         yearLevelComboBox = new javax.swing.JComboBox<>();
+        currentSemLabel = new javax.swing.JLabel();
+        currentSemComboBox = new javax.swing.JComboBox<>();
+        sectionLabel = new javax.swing.JLabel();
+        sectionComboBox = new javax.swing.JComboBox<>();
+        sexLabel = new javax.swing.JLabel();
+        sexComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sign Up");
@@ -57,7 +76,7 @@ public class SignUpFrame extends javax.swing.JFrame {
         signUpLabel.setAlignmentX(0.5F);
 
         iconLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        iconLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sims/assets/student.png"))); // NOI18N
+        iconLabel.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\sims\\assets\\student.png"));
 
         firstNameLabel.setLabelFor(firstNameField);
         firstNameLabel.setText("First Name");
@@ -78,12 +97,27 @@ public class SignUpFrame extends javax.swing.JFrame {
         departmentLabel.setLabelFor(departmentComboBox);
         departmentLabel.setText("Department");
 
-        departmentComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DOA", "DCS", "DOC", "DOE" }));
+        departmentComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "DAS", "DCS-IT", "DCS-CS", "DOC", "DOE-EN", "DOE-MATH" }));
 
         yearLevelLabel.setLabelFor(departmentComboBox);
         yearLevelLabel.setText("Year Level");
 
         yearLevelComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
+
+        currentSemLabel.setLabelFor(departmentComboBox);
+        currentSemLabel.setText("Current Sem");
+
+        currentSemComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2" }));
+
+        sectionLabel.setLabelFor(departmentComboBox);
+        sectionLabel.setText("Section");
+
+        sectionComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5", "6" }));
+
+        sexLabel.setLabelFor(departmentComboBox);
+        sexLabel.setText("Sex");
+
+        sexComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -123,7 +157,19 @@ public class SignUpFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(yearLevelLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(yearLevelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(yearLevelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(currentSemLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(currentSemComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(sectionLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(sectionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(sexLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(sexComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(87, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -147,12 +193,24 @@ public class SignUpFrame extends javax.swing.JFrame {
                 .addComponent(studentNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sexLabel)
+                    .addComponent(sexComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(departmentLabel)
                     .addComponent(departmentComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(yearLevelLabel)
                     .addComponent(yearLevelComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sectionLabel)
+                    .addComponent(sectionComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(currentSemLabel)
+                    .addComponent(currentSemComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
                 .addComponent(signUpButton)
                 .addGap(47, 47, 47))
@@ -163,7 +221,7 @@ public class SignUpFrame extends javax.swing.JFrame {
 
     private void signUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpButtonActionPerformed
         var validator = new Validator();
-        
+
         if (!validator.isValidText(firstNameField.getText())) {
             Modal.show("First Name must be valid.", "Invalid First Name", JOptionPane.WARNING_MESSAGE);
             return;
@@ -182,18 +240,20 @@ public class SignUpFrame extends javax.swing.JFrame {
 
         var email = new Email(firstNameField.getText(), lastNameField.getText(), departmentComboBox.getSelectedItem().toString());
         System.out.println(email.showInfo());
-
-        String studentQuery = "INSERT INTO student (firstName,lastName,department,studentNumber,email,password,yearLevel) VALUES('%s','%s','%s','%s','%s','%s','%s')"
+        
+        String studentQuery = "INSERT INTO student (firstName,lastName,department,studentNumber,email,password,yearLevel,section,currentSem,sex) VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')"
                 .formatted(email.getFirstName(),
                         email.getLastName(),
                         email.getDepartment(),
                         studentNumberField.getText(),
                         email.getEmail(),
                         email.getPassword(),
-                        yearLevelComboBox.getSelectedItem().toString());
-        
-        try (var conn = DatabaseConnector.getConnection();
-            var insertStudentStmt = conn.prepareStatement(studentQuery)) {
+                        yearLevelComboBox.getSelectedItem().toString(),
+                        sectionComboBox.getSelectedItem().toString(),
+                        currentSemComboBox.getSelectedItem().toString(),
+                        sexComboBox.getSelectedItem().toString());
+
+        try (var conn = DatabaseConnector.getConnection(); var insertStudentStmt = conn.prepareStatement(studentQuery)) {
 
             int rowsInserted = insertStudentStmt.executeUpdate();
 
@@ -219,7 +279,33 @@ public class SignUpFrame extends javax.swing.JFrame {
                     }
 
                     insertStudentInfoStmt.close();
-                    // TODO: INSERT DEFAULT SUBJECTS
+                    
+                    //==========================================================
+                    // INSERT DEEFAULT SUBJECTS
+                    //==========================================================
+                    String yearLevel = yearLevelComboBox.getSelectedItem().toString();
+                    String currentSem = currentSemComboBox.getSelectedItem().toString();
+                    String department = email.getDepartment().toUpperCase();
+                    
+                    insertSubjectsBasedOnDepartment(id, department, yearLevel, currentSem, conn);
+                    
+                    //==========================================================
+                    // INSERT DEEFAULT FEES
+                    //==========================================================
+                    
+                    // FOR NOW, ALL HAVE SOCIETY FEES
+                    String nextMonth = LocalDate.now().plusMonths(1).toString();
+                    var socFee = new Fee("Society Fee",nextMonth,150);
+                    
+                    String insertSocFeeQuery = "INSERT INTO fee (studentId,title,isPending,amount,dueDate) VALUES (%d,'%s','%d','%f','%s')"
+                            .formatted(id,socFee.getTitle(),socFee.getIsPending() ? 1 : 0,socFee.getAmount(),socFee.getDueDate());
+                    
+                    var insertSocFeeStmt = conn.prepareStatement(insertSocFeeQuery);
+                    
+                    int insertedSocFeeRows = insertSocFeeStmt.executeUpdate();
+                    
+                    System.out.println("INSERTED %d FEE".formatted(insertedSocFeeRows));
+                    insertSocFeeStmt.close();
 
                 }
                 this.dispose();
@@ -233,6 +319,82 @@ public class SignUpFrame extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_signUpButtonActionPerformed
+
+    private void insertSubjectsBasedOnDepartment(int studentId,String department,String yearLevel, String currentSem, Connection conn) throws SQLException {
+        DefaultSubject defaultSubjects;
+        List<StudentSubject> subjects = new LinkedList<>();
+        
+        switch(department) {
+            case "DOC" -> {
+                defaultSubjects = new DOCSubjects();
+                subjects = getSubjectsByYearLevelAndSemester(yearLevel, currentSem, defaultSubjects);
+            }
+            
+            case "DCS-CS" -> {
+                defaultSubjects = new DCSComSciSubjects();
+                subjects = getSubjectsByYearLevelAndSemester(yearLevel, currentSem, defaultSubjects);
+            }
+            
+            case "DCS-IT" -> {
+                defaultSubjects = new DCSInformationTechSubjects();
+                subjects = getSubjectsByYearLevelAndSemester(yearLevel, currentSem, defaultSubjects);
+            }
+            
+            case "DAS" -> {
+                defaultSubjects = new DASSubjects();
+                subjects = getSubjectsByYearLevelAndSemester(yearLevel, currentSem, defaultSubjects);
+            }
+            
+            case "DOE-Math" -> {
+                defaultSubjects = new DOEMajorMathSubjects();
+                subjects = getSubjectsByYearLevelAndSemester(yearLevel, currentSem, defaultSubjects);
+            }
+            case "DOE-EN" -> {
+                defaultSubjects = new DOEMajorEnglishSubjects();
+                subjects = getSubjectsByYearLevelAndSemester(yearLevel, currentSem, defaultSubjects);
+            }
+        }
+        
+        int successfulSubjectInsert = 0;
+        int failedSubjectInsert = 0;
+        for (var subject : subjects) {
+            String insertSubjectQuery = "INSERT INTO subject (studentId,subjectCode,faculty,subjectTitle,units) VALUES (%d,'%s','%s','%s','%s')"
+                    .formatted(studentId,
+                            subject.getSubjectCode(),
+                            subject.getFaculty(),
+                            subject.getSubjectTitle(),
+                            subject.getUnits());
+
+            var insertSubjectStmt = conn.prepareStatement(insertSubjectQuery);
+
+            int insertedSubjectsRows = insertSubjectStmt.executeUpdate();
+
+            if (insertedSubjectsRows > 0) {
+                successfulSubjectInsert++;
+            } else {
+                failedSubjectInsert++;
+            }
+
+            insertSubjectStmt.close();
+        }
+
+        System.out.println("""
+                            \nSUCCESSFULLY INSERTED %d 2ND SEM SUBJECTS
+                            WITH %d FAILED INSERTIONS.
+                            """.formatted(successfulSubjectInsert, failedSubjectInsert));
+    }
+    
+    private List<StudentSubject> getSubjectsByYearLevelAndSemester(String yearLevel,String currentSem,DefaultSubject defaultSubjects) {
+        if (yearLevel.equals("1") && currentSem.equals("1")) return defaultSubjects.getFirstYearFirstSem();
+        else if (yearLevel.equals("1") && currentSem.equals("2")) return defaultSubjects.getFirstYearSecondSem();
+        else if (yearLevel.equals("2") && currentSem.equals("1")) return defaultSubjects.getSecondYearFirstSem();
+        else if (yearLevel.equals("2") && currentSem.equals("2")) return defaultSubjects.getSecondYearSecondSem();
+        else if (yearLevel.equals("3") && currentSem.equals("1")) return defaultSubjects.getThirdYearFirstSem();
+        else if (yearLevel.equals("3") && currentSem.equals("2")) return defaultSubjects.getThirdYearSecondSem();
+        else if (yearLevel.equals("4") && currentSem.equals("1")) return defaultSubjects.getFourthYearFirstSem();
+        else if (yearLevel.equals("4") && currentSem.equals("2")) return defaultSubjects.getFourthYearSecondSem();
+        else return null;
+    }
 
     /**
      * @param args the command line arguments
@@ -271,6 +433,8 @@ public class SignUpFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> currentSemComboBox;
+    private javax.swing.JLabel currentSemLabel;
     private javax.swing.JComboBox<String> departmentComboBox;
     private javax.swing.JLabel departmentLabel;
     private javax.swing.JTextField firstNameField;
@@ -278,6 +442,10 @@ public class SignUpFrame extends javax.swing.JFrame {
     private javax.swing.JLabel iconLabel;
     private javax.swing.JTextField lastNameField;
     private javax.swing.JLabel lastNameLabel;
+    private javax.swing.JComboBox<String> sectionComboBox;
+    private javax.swing.JLabel sectionLabel;
+    private javax.swing.JComboBox<String> sexComboBox;
+    private javax.swing.JLabel sexLabel;
     private javax.swing.JButton signUpButton;
     private javax.swing.JLabel signUpLabel;
     private javax.swing.JTextField studentNumberField;

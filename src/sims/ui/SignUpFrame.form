@@ -67,6 +67,21 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="yearLevelComboBox" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="currentSemLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="currentSemComboBox" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="sectionLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="sectionComboBox" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Component id="sexLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="sexComboBox" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace pref="87" max="32767" attributes="0"/>
           </Group>
@@ -93,13 +108,28 @@
               <Component id="studentNumberField" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="departmentLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="departmentComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="sexLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="sexComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="departmentLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="departmentComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="yearLevelLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="yearLevelComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="sectionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="sectionComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="currentSemLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="currentSemComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
               <Component id="signUpButton" min="-2" max="-2" attributes="0"/>
@@ -122,8 +152,8 @@
     <Component class="javax.swing.JLabel" name="iconLabel">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/sims/assets/student.png"/>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.ImageIcon(System.getProperty(&quot;user.dir&quot;) + &quot;\\src\\sims\\assets\\student.png&quot;)" type="code"/>
         </Property>
       </Properties>
     </Component>
@@ -176,11 +206,13 @@
     <Component class="javax.swing.JComboBox" name="departmentComboBox">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="DOA"/>
-            <StringItem index="1" value="DCS"/>
-            <StringItem index="2" value="DOC"/>
-            <StringItem index="3" value="DOE"/>
+          <StringArray count="6">
+            <StringItem index="0" value="DAS"/>
+            <StringItem index="1" value="DCS-IT"/>
+            <StringItem index="2" value="DCS-CS"/>
+            <StringItem index="3" value="DOC"/>
+            <StringItem index="4" value="DOE-EN"/>
+            <StringItem index="5" value="DOE-MATH"/>
           </StringArray>
         </Property>
       </Properties>
@@ -204,6 +236,73 @@
             <StringItem index="1" value="2"/>
             <StringItem index="2" value="3"/>
             <StringItem index="3" value="4"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="currentSemLabel">
+      <Properties>
+        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="departmentComboBox"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Current Sem"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="currentSemComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="2">
+            <StringItem index="0" value="1"/>
+            <StringItem index="1" value="2"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="sectionLabel">
+      <Properties>
+        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="departmentComboBox"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Section"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="sectionComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="6">
+            <StringItem index="0" value="1"/>
+            <StringItem index="1" value="2"/>
+            <StringItem index="2" value="3"/>
+            <StringItem index="3" value="4"/>
+            <StringItem index="4" value="5"/>
+            <StringItem index="5" value="6"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="sexLabel">
+      <Properties>
+        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="departmentComboBox"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Sex"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="sexComboBox">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="2">
+            <StringItem index="0" value="Male"/>
+            <StringItem index="1" value="Female"/>
           </StringArray>
         </Property>
       </Properties>

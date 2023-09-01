@@ -38,7 +38,7 @@ public class Fee {
     /**
      * @return the isPending
      */
-    public boolean isIsPending() {
+    public boolean getIsPending() {
         return isPending;
     }
 
@@ -48,5 +48,4 @@ public class Fee {
     public double getAmount() {
         return amount;
     }
-
 }
