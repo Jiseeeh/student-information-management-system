@@ -276,7 +276,6 @@ public class UserProfilePanel extends javax.swing.JPanel {
                 // NULLABLE COLUMNS
                 //======================================================================                
                 if (student.getMiddleName() != null) middleNameField.setText(student.getMiddleName());
-                if (student.getSex() != null) sexComboBox.setSelectedItem(student.getSex());
                 if (student.getContactNumber() != null) contactNoField.setText(student.getContactNumber());
                 if (student.getBirthday() != null) birthdayField.setText(student.getBirthday());
                 if (student.getGuardianName() != null) guardianNameField.setText(student.getGuardianName());
@@ -291,6 +290,7 @@ public class UserProfilePanel extends javax.swing.JPanel {
                 firstNameField.setText(student.getEmail().getFirstName());
                 passwordField.setText(student.getEmail().getPassword());
                 lastNameField.setText(student.getEmail().getLastName());
+                sexComboBox.setSelectedItem(student.getSex());
 
                 //======================================================================
                 // DISABLED FIELDS
