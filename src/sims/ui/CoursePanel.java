@@ -7,11 +7,11 @@ package sims.ui;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.util.LinkedList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import sims.model.Colors;
+import sims.model.Student;
 
 /**
  *
@@ -21,43 +21,81 @@ public class CoursePanel extends javax.swing.JPanel {
 
     /**
      * Creates new form CoursePanel
+     *
+     * @param student
      */
-    public CoursePanel() {
+    public CoursePanel(Student student) {
         initComponents();
-        LinkedList<String> subjectList = new LinkedList();
-        subjectList.add("ITEC - 25");
-        subjectList.add("FITT - 4");
-        subjectList.add("FITT - 3");
-        subjectList.add("FITT - 2");
-        subjectList.add("FITT - 1");
-        
-        
-        for(String subject : subjectList){
-            
-            JLabel label = new JLabel();
-            label.setText(subject);
-            label.setHorizontalAlignment(SwingConstants.CENTER);
-            label.setVerticalAlignment(SwingConstants.CENTER);
-            label.setFont(new Font("JetBrains Mono", Font.PLAIN, 24));
-            
-            JPanel sample = new JPanel();
-            
-            sample.setPreferredSize(new Dimension(250, 50));
+
+        int totalUnits = 0;
+
+        for (var subject : student.getSubjects()) {
+            // COURSE CODE
+            var subjectCourseCodeLabel = labelGenerator(subject.getSubjectCode());
+            var subjectCourseCodePanel = new JPanel();
+            subjectCourseCodePanel.add(subjectCourseCodeLabel);
+            subjectCourseCodePanel.setLayout(new GridLayout());
+            subjectCourseCodePanel.setBackground(Colors.PRIMARY_COLOR);
+            subjectCourseCodePanel.setPreferredSize(new Dimension(250, 50));
+
+            CourseCodeColumn.add(subjectCourseCodePanel);
+
+            // COURSE DESCRIPTION
+            var subjectCourseDescLabel = labelGenerator(subject.getSubjectTitle());
+            subjectCourseDescLabel.setFont(new Font("JetBrains Mono", Font.PLAIN, 12));
+            JPanel subjectCourseDescPanel = new JPanel();
+            subjectCourseDescPanel.add(subjectCourseDescLabel);
+            subjectCourseDescPanel.setLayout(new GridLayout());
+            subjectCourseDescPanel.setBackground(Colors.PRIMARY_COLOR);
+            subjectCourseDescPanel.setPreferredSize(new Dimension(420, 50));
+
+            CourseDescriptionColumn.add(subjectCourseDescPanel);
+
+            // UNITS
+            var subjectCourseUnitsLabel = labelGenerator(subject.getUnits());
+            var subjectCourseUnitsPanel = new JPanel();
+            subjectCourseUnitsPanel.add(subjectCourseUnitsLabel);
+            subjectCourseUnitsPanel.setLayout(new GridLayout());
+            subjectCourseUnitsPanel.setBackground(Colors.PRIMARY_COLOR);
+            subjectCourseUnitsPanel.setPreferredSize(new Dimension(150, 50));
+            totalUnits += Integer.parseInt(subject.getUnits());
+            CourseUnitColumn.add(subjectCourseUnitsPanel);
+
+            // SECTION
+            var subjectCourseSectionLabel = labelGenerator(student.getYearLevel() + "-" + student.getSection());
+            var subjectCourseSectionPanel = new JPanel();
+            subjectCourseSectionPanel.add(subjectCourseSectionLabel);
+            subjectCourseSectionPanel.setLayout(new GridLayout());
+            subjectCourseSectionPanel.setBackground(Colors.PRIMARY_COLOR);
+            subjectCourseSectionPanel.setPreferredSize(new Dimension(186, 50));
+
+            CourseSectionColumn.add(subjectCourseSectionPanel);
             /*
                 Size Formats for column
                 CourseCodeColumn - Width: 250, Height: 50
                 CourseDescriptionColumn - Width: 420, Height: 50
                 CourseUnitColumn - Width: 150, Height: 50
                 CourseSectionColumn - Width: 186, Height: 50
-            */
-            sample.setLayout(new GridLayout());
-            sample.setBackground(Colors.PRIMARY_COLOR);
-            
-            
-            
-            sample.add(label);
-            CourseCodeColumn.add(sample);
+             */
         }
+
+        // TOTAL UNITS
+        var totalUnitsLabel = labelGenerator("Total: " + String.valueOf(totalUnits));
+        var totalUnitsPanel = new JPanel();
+        totalUnitsPanel.add(totalUnitsLabel);
+        totalUnitsPanel.setLayout(new GridLayout());
+        totalUnitsPanel.setBackground(Colors.PRIMARY_COLOR);
+        totalUnitsPanel.setPreferredSize(new Dimension(150, 50));
+        CourseUnitColumn.add(totalUnitsPanel);
+    }
+
+    private JLabel labelGenerator(String content) {
+        JLabel label = new JLabel(content);
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setVerticalAlignment(SwingConstants.CENTER);
+        label.setFont(new Font("JetBrains Mono", Font.PLAIN, 24));
+
+        return label;
     }
 
     /**
