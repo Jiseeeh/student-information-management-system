@@ -373,7 +373,7 @@ public class WindowFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ProfileSectionMouseClicked
 
     private void CoursesSectionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CoursesSectionMouseClicked
-        var coursePanel = new CoursePanel();
+        var coursePanel = new CoursePanel(this.student);
         
         clear();
         
@@ -381,7 +381,7 @@ public class WindowFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_CoursesSectionMouseClicked
 
     private void PayFeesSectionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PayFeesSectionMouseClicked
-        var payFeesPanel = new PayFeesPanel();
+        var payFeesPanel = new PayFeesPanel(this.student);
 
         clear();
         ContentPanel.add(payFeesPanel);
