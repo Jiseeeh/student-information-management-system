@@ -332,6 +332,18 @@ public class UserProfilePanel extends javax.swing.JPanel {
             return;
         }
         
+        //======================================================================
+        // SET STUDENT INSTANCE INFO
+        //======================================================================  
+        student.setMiddleName(middleNameField.getText());
+        student.getEmail().setPassword(new String(passwordField.getPassword()));
+        student.setContactNumber(contactNoField.getText());
+        student.setBirthday(birthdayField.getText());
+        student.setGuardianName(guardianNameField.getText());
+        student.getEmail().setReserveEmail(altEmailField.getText());
+        student.setAddress(addressField.getText());
+        
+        
         try(var conn = DatabaseConnector.getConnection()) {
             String updateStudentQuery = "UPDATE student SET middleName = '%s', alternativeEmail = '%s', password = '%s', sex = '%s' WHERE studentNumber = %s"
                     .formatted(middleNameField.getText(),
