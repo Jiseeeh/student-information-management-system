@@ -9,6 +9,7 @@ package sims.model;
  * @author johnc
  */
 public class Fee {
+    private int id;
     private String title;
     private String dueDate;
     private boolean isPending;
@@ -23,7 +24,7 @@ public class Fee {
 
     @Override
     public String toString() {
-        return "Fee{" + "title=" + title + ", dueDate=" + dueDate + ", isPending=" + isPending + ", amount=" + amount + '}';
+        return "Fee{" + "id=" + getId() + ", title=" + title + ", dueDate=" + dueDate + ", isPending=" + isPending + ", amount=" + amount + '}';
     }
 
     /**
@@ -59,5 +60,19 @@ public class Fee {
      */
     public void setIsPending(boolean isPending) {
         this.isPending = isPending;
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 }
