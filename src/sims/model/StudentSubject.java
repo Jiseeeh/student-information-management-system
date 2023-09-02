@@ -16,6 +16,11 @@ public class StudentSubject {
    private String semester;
    private double grade;
 
+    @Override
+    public String toString() {
+        return "StudentSubject{" + "subjectCode=" + subjectCode + ", faculty=" + faculty + ", subjectTitle=" + subjectTitle + ", remarks=" + remarks + ", units=" + units + ", semester=" + semester + ", grade=" + grade + '}';
+    }
+
    public StudentSubject (String subjectCode, String subjectTitle,String faculty,String units,String semester) {
        this.subjectCode = subjectCode;
        this.subjectTitle = subjectTitle;
