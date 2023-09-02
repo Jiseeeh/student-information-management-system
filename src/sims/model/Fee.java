@@ -21,6 +21,11 @@ public class Fee {
         this.isPending = true;
     }
 
+    @Override
+    public String toString() {
+        return "Fee{" + "title=" + title + ", dueDate=" + dueDate + ", isPending=" + isPending + ", amount=" + amount + '}';
+    }
+
     /**
      * @return the title
      */
