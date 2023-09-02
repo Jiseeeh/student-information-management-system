@@ -23,29 +23,7 @@ public class PayFeesPanel extends javax.swing.JPanel {
      */
     public PayFeesPanel() {
         initComponents();
-        
-        LinkedList<String> subjectList = new LinkedList();
-        subjectList.add("ITEC - 25");
-        subjectList.add("FITT - 4");
-        subjectList.add("FITT - 3");
-        subjectList.add("FITT - 2");
-        subjectList.add("FITT - 1");
-        
-        for(String subject : subjectList){
-            JLabel label = new JLabel(subject);
-            label.setHorizontalAlignment(SwingConstants.CENTER);
-            label.setVerticalAlignment(SwingConstants.CENTER);
-            label.setFont(new Font("JetBrains Mono", Font.PLAIN, 24));
-            
-            JPanel sample = new JPanel();
-            sample.setPreferredSize(new Dimension(300, 50));
-            sample.setLayout(new GridLayout());
-            sample.setOpaque(false);
-            
-            sample.add(label);
-            DueDateColumn.add(sample);
-        }
-        
+    
     }
 
     /**
