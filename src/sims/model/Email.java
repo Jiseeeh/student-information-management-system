@@ -16,6 +16,12 @@ public class Email {
     private String lastName;
     private String department;
     private String reserveEmail;
+
+    @Override
+    public String toString() {
+        return "Email{" + "institution=" + institution + ", defaultPasswordLength=" + defaultPasswordLength + ", firstName=" + firstName + ", lastName=" + lastName + ", department=" + department + ", reserveEmail=" + reserveEmail + ", email=" + email + ", password=" + password + '}';
+    }
+    
     private String email;
     private String password;
 
