@@ -23,6 +23,7 @@ public class Student {
     private String currentSem;
     private String section;
     private List<StudentSubject> subjects;
+    private List<Fee> fees;
     private int id;
 
     /**
@@ -205,6 +206,20 @@ public class Student {
      */
     public void setCurrentSem(String currentSem) {
         this.currentSem = currentSem;
+    }
+
+    /**
+     * @return the fees
+     */
+    public List<Fee> getFees() {
+        return fees;
+    }
+
+    /**
+     * @param fees the fees to set
+     */
+    public void setFees(List<Fee> fees) {
+        this.fees = fees;
     }
 
     
