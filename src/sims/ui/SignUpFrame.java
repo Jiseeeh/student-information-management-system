@@ -363,12 +363,13 @@ public class SignUpFrame extends javax.swing.JFrame {
         int successfulSubjectInsert = 0;
         int failedSubjectInsert = 0;
         for (var subject : subjects) {
-            String insertSubjectQuery = "INSERT INTO subject (studentId,subjectCode,faculty,subjectTitle,units) VALUES (%d,'%s','%s','%s','%s')"
+            String insertSubjectQuery = "INSERT INTO subject (studentId,subjectCode,faculty,subjectTitle,units,semester) VALUES (%d,'%s','%s','%s','%s','%s')"
                     .formatted(studentId,
                             subject.getSubjectCode(),
                             subject.getFaculty(),
                             subject.getSubjectTitle(),
-                            subject.getUnits());
+                            subject.getUnits(),
+                            subject.getSemester());
 
             var insertSubjectStmt = conn.prepareStatement(insertSubjectQuery);
 
@@ -384,7 +385,7 @@ public class SignUpFrame extends javax.swing.JFrame {
         }
 
         System.out.println("""
-                            \nSUCCESSFULLY INSERTED %d 2ND SEM SUBJECTS
+                            \nSUCCESSFULLY INSERTED %d SUBJECTS
                             WITH %d FAILED INSERTIONS.
                             """.formatted(successfulSubjectInsert, failedSubjectInsert));
     }
