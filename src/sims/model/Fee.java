@@ -48,4 +48,11 @@ public class Fee {
     public double getAmount() {
         return amount;
     }
+    
+    /**
+     * @param isPending the isPending to set
+     */
+    public void setIsPending(boolean isPending) {
+        this.isPending = isPending;
+    }
 }
