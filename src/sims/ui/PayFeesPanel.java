@@ -23,7 +23,6 @@ public class PayFeesPanel extends javax.swing.JPanel {
      */
     public PayFeesPanel() {
         initComponents();
-    
     }
 
     /**
