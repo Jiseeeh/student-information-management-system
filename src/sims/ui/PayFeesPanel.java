@@ -7,10 +7,18 @@ package sims.ui;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.sql.SQLException;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import sims.database.DatabaseConnector;
+import sims.model.Fee;
+import sims.model.Student;
 
 /**
  *
@@ -18,34 +26,67 @@ import javax.swing.SwingConstants;
  */
 public class PayFeesPanel extends javax.swing.JPanel {
 
+    private Student student;
+
     /**
      * Creates new form PayFeesPanel
+     *
+     * @param student
      */
-    public PayFeesPanel() {
+    public PayFeesPanel(Student student) {
         initComponents();
-        
-        LinkedList<String> subjectList = new LinkedList();
-        subjectList.add("ITEC - 25");
-        subjectList.add("FITT - 4");
-        subjectList.add("FITT - 3");
-        subjectList.add("FITT - 2");
-        subjectList.add("FITT - 1");
-        
-        for(String subject : subjectList){
-            JLabel label = new JLabel(subject);
-            label.setHorizontalAlignment(SwingConstants.CENTER);
-            label.setVerticalAlignment(SwingConstants.CENTER);
-            label.setFont(new Font("JetBrains Mono", Font.PLAIN, 24));
+        this.student = student;
+
+        setColumns(student.getFees());
+    }
+
+    private void setColumns(List<Fee> fees) {
+        double totalAmount = 0;
+        for (var fee : fees) {
+            if (fee.getIsPending()) totalAmount += fee.getAmount();
             
-            JPanel sample = new JPanel();
-            sample.setPreferredSize(new Dimension(300, 50));
-            sample.setLayout(new GridLayout());
-            sample.setOpaque(false);
-            
-            sample.add(label);
-            DueDateColumn.add(sample);
+            // DUE DATE COLUMN
+            var feeDueDateLabel = labelGenerator(fee.getDueDate());
+            var feeDuePanel = panelGenerator(feeDueDateLabel);
+            DueDateColumn.add(feeDuePanel);
+
+            // TITLE COLUMN
+            var feeTitleLabel = labelGenerator(fee.getTitle());
+            var feeTitlePanel = panelGenerator(feeTitleLabel);
+            FeeTitleColumn.add(feeTitlePanel);
+
+            // AMOUNT COLUMN
+            var feeAmountLabel = labelGenerator(Double.toString(fee.getAmount()));
+            var feeAmountPanel = panelGenerator(feeAmountLabel);
+            AmountColumn.add(feeAmountPanel);
+
+            // STATUS COLUMN
+            var feeStatusLabel = labelGenerator(fee.getIsPending() ? "PENDING" : "PAID");
+            var feeStatusPanel = panelGenerator(feeStatusLabel);
+            StatusColumn.add(feeStatusPanel);
         }
-        
+
+        AmountLabel.setText(Double.toString(totalAmount));
+    }
+
+    private JLabel labelGenerator(String content) {
+        JLabel label = new JLabel(content);
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        label.setVerticalAlignment(SwingConstants.CENTER);
+        label.setFont(new Font("JetBrains Mono", Font.PLAIN, 24));
+
+        return label;
+    }
+
+    private JPanel panelGenerator(JLabel label) {
+        JPanel panel = new JPanel();
+        panel.setPreferredSize(new Dimension(300, 50));
+        panel.setLayout(new GridLayout());
+        panel.setOpaque(false);
+
+        panel.add(label);
+
+        return panel;
     }
 
     /**
@@ -91,7 +132,7 @@ public class PayFeesPanel extends javax.swing.JPanel {
 
         DueDateHeading.setBackground(new java.awt.Color(205, 205, 205));
         DueDateHeading.setPreferredSize(new java.awt.Dimension(300, 70));
-        DueDateHeading.setLayout(new java.awt.GridLayout());
+        DueDateHeading.setLayout(new java.awt.GridLayout(1, 0));
 
         DueDateHeadingText.setFont(new java.awt.Font("JetBrains Mono", 0, 36)); // NOI18N
         DueDateHeadingText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -109,7 +150,7 @@ public class PayFeesPanel extends javax.swing.JPanel {
 
         FeeTitleHeading.setBackground(new java.awt.Color(205, 205, 205));
         FeeTitleHeading.setPreferredSize(new java.awt.Dimension(300, 70));
-        FeeTitleHeading.setLayout(new java.awt.GridLayout());
+        FeeTitleHeading.setLayout(new java.awt.GridLayout(1, 0));
 
         FeeTitleHeadingText.setFont(new java.awt.Font("JetBrains Mono", 0, 36)); // NOI18N
         FeeTitleHeadingText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -126,7 +167,7 @@ public class PayFeesPanel extends javax.swing.JPanel {
 
         AmountHeading.setBackground(new java.awt.Color(205, 205, 205));
         AmountHeading.setPreferredSize(new java.awt.Dimension(190, 70));
-        AmountHeading.setLayout(new java.awt.GridLayout());
+        AmountHeading.setLayout(new java.awt.GridLayout(1, 0));
 
         AmountHeadingText.setFont(new java.awt.Font("JetBrains Mono", 0, 36)); // NOI18N
         AmountHeadingText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -144,7 +185,7 @@ public class PayFeesPanel extends javax.swing.JPanel {
 
         StatusHeading.setBackground(new java.awt.Color(205, 205, 205));
         StatusHeading.setPreferredSize(new java.awt.Dimension(216, 70));
-        StatusHeading.setLayout(new java.awt.GridLayout());
+        StatusHeading.setLayout(new java.awt.GridLayout(1, 0));
 
         StatusHeadingText.setFont(new java.awt.Font("JetBrains Mono", 0, 36)); // NOI18N
         StatusHeadingText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -185,6 +226,11 @@ public class PayFeesPanel extends javax.swing.JPanel {
                 jButton1MouseClicked(evt);
             }
         });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel5.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(337, 104, 150, 40));
 
         FooterSection.add(jPanel5);
@@ -206,9 +252,88 @@ public class PayFeesPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        
+
     }//GEN-LAST:event_jButton1MouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String feeTitle = JOptionPane.showInputDialog("Enter fee title");
+
+        for (var fee : student.getFees()) {
+            if (fee.getTitle().equals(feeTitle)) {
+
+                String amount = JOptionPane.showInputDialog("Enter amount");
+
+                while (Double.parseDouble(amount) < fee.getAmount()) {
+                    Modal.show("Insufficient amount", "Notice", JOptionPane.WARNING_MESSAGE);
+                    amount = JOptionPane.showInputDialog("Enter amount");
+                }
+
+                String updateStatusQuery = """
+                                          UPDATE fee
+                                          SET isPending = 0
+                                          WHERE id = %d
+                                          """.formatted(fee.getId());
+
+                try (var conn = DatabaseConnector.getConnection()) {
+                    var updateStatusStmt = conn.prepareStatement(updateStatusQuery);
+                    int updatedStatusRows = updateStatusStmt.executeUpdate();
+
+                    if (updatedStatusRows > 0) {
+                        System.out.println("UPDATE SUCCESS");
+                    }
+
+                    updateStatusStmt.close();
+
+                    String getAllFeesQuery = """
+                                            SELECT fee.id, fee.title,fee.isPending,fee.amount,fee.dueDate
+                                            FROM fee
+                                            INNER JOIN student
+                                                ON student.id = fee.studentId
+                                            WHERE fee.studentId = %d
+                                             """.formatted(student.getId());
+
+                    var getAllFeesStmt = conn.prepareStatement(getAllFeesQuery);
+                    var getAllFeesResultSet = getAllFeesStmt.executeQuery();
+
+                    var fees = new LinkedList<Fee>();
+
+                    while (getAllFeesResultSet.next()) {
+                        var currFee = new Fee(getAllFeesResultSet.getString("title"), getAllFeesResultSet.getString("dueDate"), getAllFeesResultSet.getDouble("amount"));
+                        currFee.setId(getAllFeesResultSet.getInt("id"));
+                        currFee.setIsPending(getAllFeesResultSet.getBoolean("isPending"));
+
+                        fees.add(currFee);
+                    }
+
+                    student.setFees(fees);
+                    
+                    System.out.println(student.getFees().toString());
+                    DueDateColumn.removeAll();
+                    FeeTitleColumn.removeAll();
+                    AmountHeading.removeAll();
+                    StatusColumn.removeAll();
+                    
+                    DueDateColumn.repaint();
+                    DueDateColumn.revalidate();
+                    
+                    FeeTitleColumn.repaint();
+                    FeeTitleColumn.revalidate();
+                    
+                    AmountHeading.repaint();
+                    AmountHeading.revalidate();
+                    
+                    StatusColumn.repaint();
+                    StatusColumn.revalidate();
+                    setColumns(student.getFees());
+                    
+
+                } catch (SQLException | ClassNotFoundException ex) {
+                    Logger.getLogger(PayFeesPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+    }//GEN-LAST:event_jButton1ActionPerformed
+ }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AmountColumn;
