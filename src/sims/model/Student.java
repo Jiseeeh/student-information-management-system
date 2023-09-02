@@ -26,6 +26,30 @@ public class Student {
     private List<Fee> fees;
     private int id;
 
+    @Override
+    public String toString() {
+        return """
+               id: %d
+               Email: %s
+               middleName: %s
+               address: %s
+               sex: %s
+               guardianName: %s
+               birthday: %s
+               contactNumber: %s
+               studentNumber: %s
+               yearLevel: %s
+               currentSem: %s
+               section: %s
+               Subjects: %s
+               Fees: %s
+               """.formatted(id,email.toString(),middleName,
+                       address,sex,guardianName,birthday,
+                       contactNumber ,studentNumber,yearLevel,
+                       currentSem,section,subjects.toString(),
+                       fees.toString());
+    }
+
     /**
      * @return the email
      */
