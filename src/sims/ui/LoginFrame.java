@@ -5,13 +5,16 @@
 package sims.ui;
 
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import sims.database.DatabaseConnector;
 import sims.helper.Validator;
 import sims.model.Email;
+import sims.model.Fee;
 import sims.model.Student;
+import sims.model.StudentSubject;
 
 /**
  *
@@ -134,11 +137,19 @@ public class LoginFrame extends javax.swing.JFrame {
             Modal.show("Password field must be valid.", "Invalid Input", JOptionPane.WARNING_MESSAGE);
             return;
         }
-
-        String selectStudentQuery = "SELECT * FROM student INNER JOIN student_info ON student.id = student_info.studentId WHERE password = '%s' AND studentNumber = '%s' OR email = '%s'".formatted(password, studentNumberOrEmailField.getText(), studentNumberOrEmailField.getText());
+        
+        String selectStudentQuery = """
+                      SELECT * FROM student 
+                      INNER JOIN student_info
+                      	on student.id = student_info.studentId
+                      WHERE password = '%s'
+                      AND studentNumber = '%s'
+                      OR email = '%s'
+                      """.formatted(password,studentNumberOrEmailField.getText(),studentNumberOrEmailField.getText());
+        
         try (var conn = DatabaseConnector.getConnection();
-             var stmt = conn.createStatement();
-             var studentResultSet = stmt.executeQuery(selectStudentQuery);) {
+             var selectStudentStmt = conn.createStatement();
+             var studentResultSet = selectStudentStmt.executeQuery(selectStudentQuery);) {
             
             // if there are no results returned
             if (!studentResultSet.isBeforeFirst()) {
@@ -147,6 +158,9 @@ public class LoginFrame extends javax.swing.JFrame {
             }
             
             // TODO OPTIONAL: set new student's info, current sem, section etc.
+            //======================================================================
+            // STUDENT INFO QUERY
+            //======================================================================
             var student = new Student(); // maybe we can serialize/save this to save the current logged in user.
             while (studentResultSet.next()) {
                 var studentEmail = new Email(studentResultSet.getString("firstName"), studentResultSet.getString("lastName"), studentResultSet.getString("department"));
@@ -158,6 +172,8 @@ public class LoginFrame extends javax.swing.JFrame {
                 student.setEmail(studentEmail);
                 student.setId(studentResultSet.getInt("id"));
                 student.setStudentNumber(studentResultSet.getString("studentNumber"));
+                student.setYearLevel(studentResultSet.getString("yearLevel"));
+                student.setSection(studentResultSet.getString("section"));
                 
                 //======================================================================
                 // NULLABLE COLUMNS
@@ -170,6 +186,73 @@ public class LoginFrame extends javax.swing.JFrame {
                 if (studentResultSet.getString("alternativeEmail") != null) studentEmail.setReserveEmail(studentResultSet.getString("alternativeEmail"));
                 if (studentResultSet.getString("address") != null) student.setAddress(studentResultSet.getString("address"));
             }
+            
+            //======================================================================
+            // STUDENT SUBJECTS QUERY
+            //======================================================================
+            String selectStudentSubjectsQuery = """
+                                                SELECT subject.subjectCode,
+                                                subject.faculty,
+                                                subject.subjectTitle,
+                                                subject.remarks,
+                                                subject.units,
+                                                subject.grade,
+                                                subject.semester
+                                                FROM subject
+                                                	inner join student
+                                                	on subject.studentId  = student.id
+                                                where subject.studentId = %d
+                                                """.formatted(student.getId());
+            
+            var selectStudentSubjectsStmt = conn.prepareStatement(selectStudentSubjectsQuery);
+            var studentSubjectsResultSet = selectStudentSubjectsStmt.executeQuery();
+            
+            var studentSubjects = new LinkedList<StudentSubject>();
+            
+            while(studentSubjectsResultSet.next()) {
+                var subject = new StudentSubject(studentSubjectsResultSet.getString("subjectCode"),
+                        studentSubjectsResultSet.getString("subjectTitle"), 
+                        studentSubjectsResultSet.getString("faculty"), 
+                        studentSubjectsResultSet.getString("units"), 
+                        studentSubjectsResultSet.getString("semester"));
+                subject.setGrade(studentSubjectsResultSet.getDouble("grade"));
+                
+                studentSubjects.add(subject);
+            }
+            
+            // set student instance subjects
+            student.setSubjects(studentSubjects);
+            selectStudentSubjectsStmt.close();
+            studentSubjectsResultSet.close();
+            
+            //======================================================================
+            // STUDENT FEES QUERY
+            //======================================================================
+            
+            String selectStudentFeesQuery = """
+                                       SELECT fee.id,fee.title,fee.isPending,fee.amount,fee.dueDate
+                                       FROM fee
+                                       INNER JOIN student
+                                       	ON student.id = fee.studentId
+                                       WHERE fee.studentId = %d
+                                       """.formatted(student.getId());
+            var selectStudentFeesStmt = conn.prepareStatement(selectStudentFeesQuery);
+            var studentFeesResultSet = selectStudentFeesStmt.executeQuery();
+            
+            var studentFees = new LinkedList<Fee>();
+            
+            while(studentFeesResultSet.next()) {
+                var fee = new Fee(studentFeesResultSet.getString("title"),studentFeesResultSet.getString("dueDate"),studentFeesResultSet.getDouble("amount"));
+                fee.setId(studentFeesResultSet.getInt("id"));
+                fee.setIsPending(studentFeesResultSet.getBoolean("isPending"));
+                
+                studentFees.add(fee);
+            }
+            
+            student.setFees(studentFees);
+            
+            selectStudentFeesStmt.close();
+            studentFeesResultSet.close();
             
             System.out.println(student);
             Modal.show("You will now be redirected to the dashboard.", "Login success!", JOptionPane.INFORMATION_MESSAGE);
