@@ -95,8 +95,8 @@ public class WindowFrame extends javax.swing.JFrame {
         ProfileSection.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Icon1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Icon1.setText("Icon");
-        ProfileSection.add(Icon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 53, 60));
+        Icon1.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\sims\\assets\\profile-section.png"));
+        ProfileSection.add(Icon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 53, 60));
 
         jLabel2.setFont(new java.awt.Font("JetBrains Mono", 0, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -125,7 +125,7 @@ public class WindowFrame extends javax.swing.JFrame {
         jLabel3.setText("Courses");
 
         Icon2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Icon2.setText("Icon");
+        Icon2.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\sims\\assets\\courses-section.png"));
 
         javax.swing.GroupLayout CoursesSectionLayout = new javax.swing.GroupLayout(CoursesSection);
         CoursesSection.setLayout(CoursesSectionLayout);
@@ -141,10 +141,14 @@ public class WindowFrame extends javax.swing.JFrame {
         CoursesSectionLayout.setVerticalGroup(
             CoursesSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CoursesSectionLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(CoursesSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Icon2, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
-                    .addComponent(jLabel3))
+                .addGroup(CoursesSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(CoursesSectionLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Icon2, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
+                    .addGroup(CoursesSectionLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -170,7 +174,7 @@ public class WindowFrame extends javax.swing.JFrame {
         jLabel4.setText("Pay Fees");
 
         Icon3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Icon3.setText("Icon");
+        Icon3.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\sims\\assets\\fee-section.png"));
 
         javax.swing.GroupLayout PayFeesSectionLayout = new javax.swing.GroupLayout(PayFeesSection);
         PayFeesSection.setLayout(PayFeesSectionLayout);
@@ -186,10 +190,14 @@ public class WindowFrame extends javax.swing.JFrame {
         PayFeesSectionLayout.setVerticalGroup(
             PayFeesSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PayFeesSectionLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PayFeesSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Icon3, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
-                    .addComponent(jLabel4))
+                .addGroup(PayFeesSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PayFeesSectionLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Icon3, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
+                    .addGroup(PayFeesSectionLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel4)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -211,7 +219,7 @@ public class WindowFrame extends javax.swing.JFrame {
         });
 
         Icon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Icon.setText("Icon");
+        Icon.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\sims\\assets\\tor-cog-section.png"));
 
         jLabel1.setFont(new java.awt.Font("JetBrains Mono", 0, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -231,10 +239,14 @@ public class WindowFrame extends javax.swing.JFrame {
         TOR_ReportSectionLayout.setVerticalGroup(
             TOR_ReportSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TOR_ReportSectionLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(TOR_ReportSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Icon, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
-                    .addComponent(jLabel1))
+                .addGroup(TOR_ReportSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(TOR_ReportSectionLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Icon, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
+                    .addGroup(TOR_ReportSectionLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -254,10 +266,10 @@ public class WindowFrame extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("JetBrains Mono", 0, 24)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("COR Report");
+        jLabel5.setText("COG Report");
 
         Icon4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Icon4.setText("Icon");
+        Icon4.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\sims\\assets\\tor-cog-section.png"));
 
         javax.swing.GroupLayout COR_ReportSectionLayout = new javax.swing.GroupLayout(COR_ReportSection);
         COR_ReportSection.setLayout(COR_ReportSectionLayout);
@@ -273,10 +285,14 @@ public class WindowFrame extends javax.swing.JFrame {
         COR_ReportSectionLayout.setVerticalGroup(
             COR_ReportSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(COR_ReportSectionLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(COR_ReportSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Icon4, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                    .addComponent(jLabel5))
+                .addGroup(COR_ReportSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(COR_ReportSectionLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Icon4, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
+                    .addGroup(COR_ReportSectionLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel5)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
