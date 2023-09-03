@@ -62,7 +62,6 @@ public class WindowFrame extends javax.swing.JFrame {
         ContentPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1280, 720));
 
         SidebarContainer.setBackground(new java.awt.Color(217, 217, 217));
 
@@ -200,6 +199,9 @@ public class WindowFrame extends javax.swing.JFrame {
         TOR_ReportSection.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         TOR_ReportSection.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         TOR_ReportSection.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TOR_ReportSectionMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 TOR_ReportSectionMouseEntered(evt);
             }
@@ -381,6 +383,14 @@ public class WindowFrame extends javax.swing.JFrame {
         
         ContentPanel.add(payFeesPanel);
     }//GEN-LAST:event_PayFeesSectionMouseClicked
+
+    private void TOR_ReportSectionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TOR_ReportSectionMouseClicked
+        var torReportPanel = new TorReportPanel();
+        
+        clear();
+        
+        ContentPanel.add(torReportPanel);
+    }//GEN-LAST:event_TOR_ReportSectionMouseClicked
 
     private void clear() {
         ContentPanel.removeAll();
