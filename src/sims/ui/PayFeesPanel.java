@@ -132,7 +132,7 @@ public class PayFeesPanel extends javax.swing.JPanel {
 
         DueDateHeading.setBackground(new java.awt.Color(205, 205, 205));
         DueDateHeading.setPreferredSize(new java.awt.Dimension(300, 70));
-        DueDateHeading.setLayout(new java.awt.GridLayout());
+        DueDateHeading.setLayout(new java.awt.GridLayout(1, 0));
 
         DueDateHeadingText1.setFont(new java.awt.Font("JetBrains Mono", 0, 36)); // NOI18N
         DueDateHeadingText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -143,7 +143,7 @@ public class PayFeesPanel extends javax.swing.JPanel {
 
         FeeTitleHeading.setBackground(new java.awt.Color(205, 205, 205));
         FeeTitleHeading.setPreferredSize(new java.awt.Dimension(300, 70));
-        FeeTitleHeading.setLayout(new java.awt.GridLayout());
+        FeeTitleHeading.setLayout(new java.awt.GridLayout(1, 0));
 
         FeeTitleHeadingText1.setFont(new java.awt.Font("JetBrains Mono", 0, 36)); // NOI18N
         FeeTitleHeadingText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -154,7 +154,7 @@ public class PayFeesPanel extends javax.swing.JPanel {
 
         AmountHeading.setBackground(new java.awt.Color(205, 205, 205));
         AmountHeading.setPreferredSize(new java.awt.Dimension(190, 70));
-        AmountHeading.setLayout(new java.awt.GridLayout());
+        AmountHeading.setLayout(new java.awt.GridLayout(1, 0));
 
         AmountHeadingText1.setFont(new java.awt.Font("JetBrains Mono", 0, 36)); // NOI18N
         AmountHeadingText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -165,7 +165,7 @@ public class PayFeesPanel extends javax.swing.JPanel {
 
         StatusHeading.setBackground(new java.awt.Color(205, 205, 205));
         StatusHeading.setPreferredSize(new java.awt.Dimension(216, 70));
-        StatusHeading.setLayout(new java.awt.GridLayout());
+        StatusHeading.setLayout(new java.awt.GridLayout(1, 0));
 
         StatusHeadingText1.setFont(new java.awt.Font("JetBrains Mono", 0, 36)); // NOI18N
         StatusHeadingText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -230,7 +230,7 @@ public class PayFeesPanel extends javax.swing.JPanel {
         });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                payFeesButtonActionPerformed(evt);
             }
         });
         jPanel5.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(337, 104, 150, 40));
@@ -257,7 +257,7 @@ public class PayFeesPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jButton1MouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void payFeesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payFeesButtonActionPerformed
         String feeTitle = JOptionPane.showInputDialog("Enter fee title");
 
         for (var fee : student.getFees()) {
@@ -343,7 +343,7 @@ public class PayFeesPanel extends javax.swing.JPanel {
                 }
 
             }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_payFeesButtonActionPerformed
  }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
