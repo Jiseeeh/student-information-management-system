@@ -261,7 +261,12 @@ public class PayFeesPanel extends javax.swing.JPanel {
         String feeTitle = JOptionPane.showInputDialog("Enter fee title");
 
         for (var fee : student.getFees()) {
-            if (fee.getTitle().equals(feeTitle)) {
+            if (fee.getTitle().toLowerCase().equals(feeTitle.toLowerCase())) {
+                // IF ALREADY PAID
+                if (!fee.getIsPending()) {
+                    Modal.show("You already paid for " + fee.getTitle(), "Notice", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
 
                 String amount = JOptionPane.showInputDialog("Enter amount");
 
@@ -269,6 +274,8 @@ public class PayFeesPanel extends javax.swing.JPanel {
                     Modal.show("Insufficient amount", "Notice", JOptionPane.WARNING_MESSAGE);
                     amount = JOptionPane.showInputDialog("Enter amount");
                 }
+                
+                Modal.show("Your change is " + (Double.parseDouble(amount) - fee.getAmount()), "Notice", JOptionPane.INFORMATION_MESSAGE);
 
                 String updateStatusQuery = """
                                           UPDATE fee
@@ -312,8 +319,10 @@ public class PayFeesPanel extends javax.swing.JPanel {
                     System.out.println(student.getFees().toString());
                     DueDateColumn.removeAll();
                     FeeTitleColumn.removeAll();
-                    AmountHeading.removeAll();
+                    AmountColumn.removeAll();
                     StatusColumn.removeAll();
+                    
+                    setColumns(student.getFees());
                     
                     DueDateColumn.repaint();
                     DueDateColumn.revalidate();
@@ -321,12 +330,12 @@ public class PayFeesPanel extends javax.swing.JPanel {
                     FeeTitleColumn.repaint();
                     FeeTitleColumn.revalidate();
                     
-                    AmountHeading.repaint();
-                    AmountHeading.revalidate();
+                    AmountColumn.repaint();
+                    AmountColumn.revalidate();
                     
                     StatusColumn.repaint();
                     StatusColumn.revalidate();
-                    setColumns(student.getFees());
+                    
                     
 
                 } catch (SQLException | ClassNotFoundException ex) {
