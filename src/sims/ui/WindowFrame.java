@@ -385,7 +385,7 @@ public class WindowFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_PayFeesSectionMouseClicked
 
     private void TOR_ReportSectionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TOR_ReportSectionMouseClicked
-        var torReportPanel = new TorReportPanel();
+        var torReportPanel = new TorReportPanel(this.student);
         
         clear();
         
