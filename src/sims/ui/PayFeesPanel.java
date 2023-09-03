@@ -25,7 +25,7 @@ import sims.model.Student;
  * @author Jireh
  */
 public class PayFeesPanel extends javax.swing.JPanel {
-
+    String delete = "Delete me";
     private Student student;
 
     /**
