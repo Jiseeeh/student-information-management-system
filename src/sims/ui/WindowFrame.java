@@ -12,7 +12,6 @@ import sims.model.Student;
  * @author Jireh
  */
 public class WindowFrame extends javax.swing.JFrame {
-    public boolean isActive;
     private final Student student;
 
     /**
@@ -363,13 +362,8 @@ public class WindowFrame extends javax.swing.JFrame {
         UserProfilePanel profilePanel = new UserProfilePanel(this.student);
         
         clear();
+        
         ContentPanel.add(profilePanel);
-        
-        
-        /*
-            You need to call repaint() and revalidate() both in 
-            order to replace all the elements from your JPanel.
-        */
     }//GEN-LAST:event_ProfileSectionMouseClicked
 
     private void CoursesSectionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CoursesSectionMouseClicked
@@ -384,6 +378,7 @@ public class WindowFrame extends javax.swing.JFrame {
         var payFeesPanel = new PayFeesPanel(this.student);
 
         clear();
+        
         ContentPanel.add(payFeesPanel);
     }//GEN-LAST:event_PayFeesSectionMouseClicked
 
