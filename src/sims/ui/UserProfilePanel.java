@@ -45,6 +45,8 @@ public class UserProfilePanel extends javax.swing.JPanel {
         studentNumber = new javax.swing.JLabel();
         institutionalEmailLabel = new javax.swing.JLabel();
         studentInstitutionalEmail = new javax.swing.JLabel();
+        institutionalEmailLabel1 = new javax.swing.JLabel();
+        studentSectionLabel = new javax.swing.JLabel();
         FullNameSection = new javax.swing.JPanel();
         firstNameField = new javax.swing.JTextField();
         middleNameField = new javax.swing.JTextField();
@@ -86,29 +88,77 @@ public class UserProfilePanel extends javax.swing.JPanel {
         });
 
         PrimaryInformationSection.setPreferredSize(new java.awt.Dimension(260, 243));
-        PrimaryInformationSection.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
 
         studentNumberLabel.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         studentNumberLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         studentNumberLabel.setText("Student Number:");
         studentNumberLabel.setPreferredSize(new java.awt.Dimension(163, 24));
-        PrimaryInformationSection.add(studentNumberLabel);
 
         studentNumber.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         studentNumber.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         studentNumber.setText("201232132311");
         studentNumber.setInheritsPopupMenu(false);
         studentNumber.setPreferredSize(new java.awt.Dimension(300, 40));
-        PrimaryInformationSection.add(studentNumber);
 
         institutionalEmailLabel.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         institutionalEmailLabel.setText("Institutional Email:");
-        PrimaryInformationSection.add(institutionalEmailLabel);
 
         studentInstitutionalEmail.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         studentInstitutionalEmail.setText("john.smith@cvsu.edu.ph");
         studentInstitutionalEmail.setPreferredSize(new java.awt.Dimension(300, 40));
-        PrimaryInformationSection.add(studentInstitutionalEmail);
+
+        institutionalEmailLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        institutionalEmailLabel1.setText("Section:");
+
+        studentSectionLabel.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        studentSectionLabel.setText("2-2");
+        studentSectionLabel.setPreferredSize(new java.awt.Dimension(300, 40));
+
+        javax.swing.GroupLayout PrimaryInformationSectionLayout = new javax.swing.GroupLayout(PrimaryInformationSection);
+        PrimaryInformationSection.setLayout(PrimaryInformationSectionLayout);
+        PrimaryInformationSectionLayout.setHorizontalGroup(
+            PrimaryInformationSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PrimaryInformationSectionLayout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addGroup(PrimaryInformationSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PrimaryInformationSectionLayout.createSequentialGroup()
+                        .addComponent(studentNumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(studentNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PrimaryInformationSectionLayout.createSequentialGroup()
+                        .addGroup(PrimaryInformationSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PrimaryInformationSectionLayout.createSequentialGroup()
+                                .addComponent(institutionalEmailLabel)
+                                .addGap(10, 10, 10))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PrimaryInformationSectionLayout.createSequentialGroup()
+                                .addComponent(institutionalEmailLabel1)
+                                .addGap(18, 18, 18)))
+                        .addGroup(PrimaryInformationSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(studentInstitutionalEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(studentSectionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(49, 49, 49))
+        );
+        PrimaryInformationSectionLayout.setVerticalGroup(
+            PrimaryInformationSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PrimaryInformationSectionLayout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addGroup(PrimaryInformationSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PrimaryInformationSectionLayout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(studentNumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(studentNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addGroup(PrimaryInformationSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PrimaryInformationSectionLayout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(institutionalEmailLabel))
+                    .addComponent(studentInstitutionalEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(PrimaryInformationSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(studentSectionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(institutionalEmailLabel1))
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
 
         FullNameSection.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 5));
 
@@ -207,10 +257,6 @@ public class UserProfilePanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(PrimaryInformationSection, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(122, 122, 122))
             .addGroup(layout.createSequentialGroup()
                 .addGap(64, 64, 64)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,10 +278,12 @@ public class UserProfilePanel extends javax.swing.JPanel {
                                 .addComponent(SexSection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(100, 100, 100))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(AddressSection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(AltEmailSection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(PrimaryInformationSection, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(AddressSection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(AltEmailSection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE))))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(283, 283, 283)
@@ -245,9 +293,9 @@ public class UserProfilePanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(92, Short.MAX_VALUE)
+                .addComponent(PrimaryInformationSection, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(PrimaryInformationSection, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(FullNameSection, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(SexSection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -291,6 +339,7 @@ public class UserProfilePanel extends javax.swing.JPanel {
                 passwordField.setText(student.getEmail().getPassword());
                 lastNameField.setText(student.getEmail().getLastName());
                 sexComboBox.setSelectedItem(student.getSex());
+                studentSectionLabel.setText("%s-%s".formatted(student.getYearLevel(),student.getSection()));
 
                 //======================================================================
                 // DISABLED FIELDS
@@ -405,6 +454,7 @@ public class UserProfilePanel extends javax.swing.JPanel {
     private javax.swing.JTextField guardianNameField;
     private javax.swing.JLabel guardianNameLabel;
     private javax.swing.JLabel institutionalEmailLabel;
+    private javax.swing.JLabel institutionalEmailLabel1;
     private javax.swing.JTextField lastNameField;
     private javax.swing.JLabel lastNameLabel;
     private javax.swing.JTextField middleNameField;
@@ -418,5 +468,6 @@ public class UserProfilePanel extends javax.swing.JPanel {
     private javax.swing.JLabel studentInstitutionalEmail;
     private javax.swing.JLabel studentNumber;
     private javax.swing.JLabel studentNumberLabel;
+    private javax.swing.JLabel studentSectionLabel;
     // End of variables declaration//GEN-END:variables
 }
