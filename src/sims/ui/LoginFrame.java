@@ -197,7 +197,8 @@ public class LoginFrame extends javax.swing.JFrame {
                                                 subject.remarks,
                                                 subject.units,
                                                 subject.grade,
-                                                subject.semester
+                                                subject.semester,
+                                                subject.yearLevel
                                                 FROM subject
                                                 	inner join student
                                                 	on subject.studentId  = student.id
@@ -214,7 +215,7 @@ public class LoginFrame extends javax.swing.JFrame {
                         studentSubjectsResultSet.getString("subjectTitle"), 
                         studentSubjectsResultSet.getString("faculty"), 
                         studentSubjectsResultSet.getString("units"), 
-                        studentSubjectsResultSet.getString("semester"));
+                        studentSubjectsResultSet.getString("yearLevel"),studentSubjectsResultSet.getString("semester"));
                 subject.setGrade(studentSubjectsResultSet.getDouble("grade"));
                 
                 studentSubjects.add(subject);
