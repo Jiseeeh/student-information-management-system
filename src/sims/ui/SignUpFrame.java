@@ -363,13 +363,15 @@ public class SignUpFrame extends javax.swing.JFrame {
         int successfulSubjectInsert = 0;
         int failedSubjectInsert = 0;
         for (var subject : subjects) {
-            String insertSubjectQuery = "INSERT INTO subject (studentId,subjectCode,faculty,subjectTitle,units,semester) VALUES (%d,'%s','%s','%s','%s','%s')"
+            System.out.println(subject);
+            String insertSubjectQuery = "INSERT INTO subject (studentId,subjectCode,faculty,subjectTitle,units,semester,yearLevel) VALUES (%d,'%s','%s','%s','%s','%s','%s')"
                     .formatted(studentId,
                             subject.getSubjectCode(),
                             subject.getFaculty(),
                             subject.getSubjectTitle(),
                             subject.getUnits(),
-                            subject.getSemester());
+                            subject.getSemester(),
+                            subject.getYearLevel());
 
             var insertSubjectStmt = conn.prepareStatement(insertSubjectQuery);
 
