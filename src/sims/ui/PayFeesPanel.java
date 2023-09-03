@@ -25,7 +25,7 @@ import sims.model.Student;
  * @author Jireh
  */
 public class PayFeesPanel extends javax.swing.JPanel {
-    String delete = "Delete me";
+   
     private Student student;
 
     /**
@@ -100,18 +100,19 @@ public class PayFeesPanel extends javax.swing.JPanel {
 
         jLabel3 = new javax.swing.JLabel();
         MainContentSection = new javax.swing.JPanel();
-        DueDateColumn = new javax.swing.JPanel();
+        HeadingSectionPanel = new javax.swing.JPanel();
         DueDateHeading = new javax.swing.JPanel();
-        DueDateHeadingText = new javax.swing.JLabel();
-        FeeTitleColumn = new javax.swing.JPanel();
+        DueDateHeadingText1 = new javax.swing.JLabel();
         FeeTitleHeading = new javax.swing.JPanel();
-        FeeTitleHeadingText = new javax.swing.JLabel();
-        AmountColumn = new javax.swing.JPanel();
+        FeeTitleHeadingText1 = new javax.swing.JLabel();
         AmountHeading = new javax.swing.JPanel();
-        AmountHeadingText = new javax.swing.JLabel();
-        StatusColumn = new javax.swing.JPanel();
+        AmountHeadingText1 = new javax.swing.JLabel();
         StatusHeading = new javax.swing.JPanel();
-        StatusHeadingText = new javax.swing.JLabel();
+        StatusHeadingText1 = new javax.swing.JLabel();
+        DueDateColumn = new javax.swing.JPanel();
+        FeeTitleColumn = new javax.swing.JPanel();
+        AmountColumn = new javax.swing.JPanel();
+        StatusColumn = new javax.swing.JPanel();
         FooterSection = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         TotalLabel = new javax.swing.JLabel();
@@ -126,74 +127,75 @@ public class PayFeesPanel extends javax.swing.JPanel {
         MainContentSection.setPreferredSize(new java.awt.Dimension(1006, 520));
         MainContentSection.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
 
-        DueDateColumn.setBackground(new java.awt.Color(217, 217, 217));
-        DueDateColumn.setPreferredSize(new java.awt.Dimension(300, 720));
-        DueDateColumn.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
+        HeadingSectionPanel.setPreferredSize(new java.awt.Dimension(1006, 70));
+        HeadingSectionPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
 
         DueDateHeading.setBackground(new java.awt.Color(205, 205, 205));
         DueDateHeading.setPreferredSize(new java.awt.Dimension(300, 70));
-        DueDateHeading.setLayout(new java.awt.GridLayout(1, 0));
+        DueDateHeading.setLayout(new java.awt.GridLayout());
 
-        DueDateHeadingText.setFont(new java.awt.Font("JetBrains Mono", 0, 36)); // NOI18N
-        DueDateHeadingText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        DueDateHeadingText.setText("Due Date");
-        DueDateHeading.add(DueDateHeadingText);
+        DueDateHeadingText1.setFont(new java.awt.Font("JetBrains Mono", 0, 36)); // NOI18N
+        DueDateHeadingText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        DueDateHeadingText1.setText("Due Date");
+        DueDateHeading.add(DueDateHeadingText1);
 
-        DueDateColumn.add(DueDateHeading);
+        HeadingSectionPanel.add(DueDateHeading);
 
+        FeeTitleHeading.setBackground(new java.awt.Color(205, 205, 205));
+        FeeTitleHeading.setPreferredSize(new java.awt.Dimension(300, 70));
+        FeeTitleHeading.setLayout(new java.awt.GridLayout());
+
+        FeeTitleHeadingText1.setFont(new java.awt.Font("JetBrains Mono", 0, 36)); // NOI18N
+        FeeTitleHeadingText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        FeeTitleHeadingText1.setText("Title");
+        FeeTitleHeading.add(FeeTitleHeadingText1);
+
+        HeadingSectionPanel.add(FeeTitleHeading);
+
+        AmountHeading.setBackground(new java.awt.Color(205, 205, 205));
+        AmountHeading.setPreferredSize(new java.awt.Dimension(190, 70));
+        AmountHeading.setLayout(new java.awt.GridLayout());
+
+        AmountHeadingText1.setFont(new java.awt.Font("JetBrains Mono", 0, 36)); // NOI18N
+        AmountHeadingText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        AmountHeadingText1.setText("Amount");
+        AmountHeading.add(AmountHeadingText1);
+
+        HeadingSectionPanel.add(AmountHeading);
+
+        StatusHeading.setBackground(new java.awt.Color(205, 205, 205));
+        StatusHeading.setPreferredSize(new java.awt.Dimension(216, 70));
+        StatusHeading.setLayout(new java.awt.GridLayout());
+
+        StatusHeadingText1.setFont(new java.awt.Font("JetBrains Mono", 0, 36)); // NOI18N
+        StatusHeadingText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        StatusHeadingText1.setText("Status");
+        StatusHeading.add(StatusHeadingText1);
+
+        HeadingSectionPanel.add(StatusHeading);
+
+        MainContentSection.add(HeadingSectionPanel);
+
+        DueDateColumn.setBackground(new java.awt.Color(217, 217, 217));
+        DueDateColumn.setPreferredSize(new java.awt.Dimension(300, 450));
+        DueDateColumn.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
         MainContentSection.add(DueDateColumn);
 
         FeeTitleColumn.setBackground(new java.awt.Color(217, 217, 217));
         FeeTitleColumn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 2, 0, 2, new java.awt.Color(205, 205, 205)));
-        FeeTitleColumn.setPreferredSize(new java.awt.Dimension(300, 720));
+        FeeTitleColumn.setPreferredSize(new java.awt.Dimension(300, 450));
         FeeTitleColumn.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
-
-        FeeTitleHeading.setBackground(new java.awt.Color(205, 205, 205));
-        FeeTitleHeading.setPreferredSize(new java.awt.Dimension(300, 70));
-        FeeTitleHeading.setLayout(new java.awt.GridLayout(1, 0));
-
-        FeeTitleHeadingText.setFont(new java.awt.Font("JetBrains Mono", 0, 36)); // NOI18N
-        FeeTitleHeadingText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        FeeTitleHeadingText.setText("Title");
-        FeeTitleHeading.add(FeeTitleHeadingText);
-
-        FeeTitleColumn.add(FeeTitleHeading);
-
         MainContentSection.add(FeeTitleColumn);
 
         AmountColumn.setBackground(new java.awt.Color(217, 217, 217));
-        AmountColumn.setPreferredSize(new java.awt.Dimension(190, 720));
+        AmountColumn.setPreferredSize(new java.awt.Dimension(190, 450));
         AmountColumn.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
-
-        AmountHeading.setBackground(new java.awt.Color(205, 205, 205));
-        AmountHeading.setPreferredSize(new java.awt.Dimension(190, 70));
-        AmountHeading.setLayout(new java.awt.GridLayout(1, 0));
-
-        AmountHeadingText.setFont(new java.awt.Font("JetBrains Mono", 0, 36)); // NOI18N
-        AmountHeadingText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        AmountHeadingText.setText("Amount");
-        AmountHeading.add(AmountHeadingText);
-
-        AmountColumn.add(AmountHeading);
-
         MainContentSection.add(AmountColumn);
 
         StatusColumn.setBackground(new java.awt.Color(217, 217, 217));
         StatusColumn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 2, 0, 0, new java.awt.Color(205, 205, 205)));
-        StatusColumn.setPreferredSize(new java.awt.Dimension(216, 720));
+        StatusColumn.setPreferredSize(new java.awt.Dimension(216, 450));
         StatusColumn.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
-
-        StatusHeading.setBackground(new java.awt.Color(205, 205, 205));
-        StatusHeading.setPreferredSize(new java.awt.Dimension(216, 70));
-        StatusHeading.setLayout(new java.awt.GridLayout(1, 0));
-
-        StatusHeadingText.setFont(new java.awt.Font("JetBrains Mono", 0, 36)); // NOI18N
-        StatusHeadingText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        StatusHeadingText.setText("Status");
-        StatusHeading.add(StatusHeadingText);
-
-        StatusColumn.add(StatusHeading);
-
         MainContentSection.add(StatusColumn);
 
         FooterSection.setBackground(new java.awt.Color(205, 205, 205));
@@ -338,19 +340,20 @@ public class PayFeesPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AmountColumn;
     private javax.swing.JPanel AmountHeading;
-    private javax.swing.JLabel AmountHeadingText;
+    private javax.swing.JLabel AmountHeadingText1;
     private javax.swing.JLabel AmountLabel;
     private javax.swing.JPanel DueDateColumn;
     private javax.swing.JPanel DueDateHeading;
-    private javax.swing.JLabel DueDateHeadingText;
+    private javax.swing.JLabel DueDateHeadingText1;
     private javax.swing.JPanel FeeTitleColumn;
     private javax.swing.JPanel FeeTitleHeading;
-    private javax.swing.JLabel FeeTitleHeadingText;
+    private javax.swing.JLabel FeeTitleHeadingText1;
     private javax.swing.JPanel FooterSection;
+    private javax.swing.JPanel HeadingSectionPanel;
     private javax.swing.JPanel MainContentSection;
     private javax.swing.JPanel StatusColumn;
     private javax.swing.JPanel StatusHeading;
-    private javax.swing.JLabel StatusHeadingText;
+    private javax.swing.JLabel StatusHeadingText1;
     private javax.swing.JLabel TotalLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel3;
