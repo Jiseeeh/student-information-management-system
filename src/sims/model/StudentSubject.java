@@ -15,19 +15,23 @@ public class StudentSubject {
    private String units;
    private String semester;
    private double grade;
+   private String yearLevel;
 
-    @Override
-    public String toString() {
-        return "StudentSubject{" + "subjectCode=" + subjectCode + ", faculty=" + faculty + ", subjectTitle=" + subjectTitle + ", remarks=" + remarks + ", units=" + units + ", semester=" + semester + ", grade=" + grade + '}';
-    }
+    
 
-   public StudentSubject (String subjectCode, String subjectTitle,String faculty,String units,String semester) {
+   public StudentSubject (String subjectCode, String subjectTitle,String faculty,String units,String yearLevel,String semester) {
        this.subjectCode = subjectCode;
        this.subjectTitle = subjectTitle;
        this.faculty = faculty;
        this.units = units;
        this.semester = semester;
+       this.yearLevel = yearLevel;
    }
+
+    @Override
+    public String toString() {
+        return "StudentSubject{" + "subjectCode=" + subjectCode + ", faculty=" + faculty + ", subjectTitle=" + subjectTitle + ", remarks=" + remarks + ", units=" + units + ", semester=" + semester + ", grade=" + grade + ", yearLevel=" + yearLevel + '}';
+    }
 
     /**
      * @return the subjectCode
@@ -97,6 +101,13 @@ public class StudentSubject {
      */
     public void setGrade(double grade) {
         this.grade = grade;
+    }
+
+    /**
+     * @return the yearLevel
+     */
+    public String getYearLevel() {
+        return yearLevel;
     }
     
 }
