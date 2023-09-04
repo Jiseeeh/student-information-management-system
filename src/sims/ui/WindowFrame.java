@@ -256,6 +256,9 @@ public class WindowFrame extends javax.swing.JFrame {
         COR_ReportSection.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         COR_ReportSection.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         COR_ReportSection.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                COR_ReportSectionMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 COR_ReportSectionMouseEntered(evt);
             }
@@ -407,6 +410,14 @@ public class WindowFrame extends javax.swing.JFrame {
         
         ContentPanel.add(torReportPanel);
     }//GEN-LAST:event_TOR_ReportSectionMouseClicked
+
+    private void COR_ReportSectionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_COR_ReportSectionMouseClicked
+        var cogReportPanel = new CogReportPanel();
+        
+        clear();
+        
+        ContentPanel.add(cogReportPanel);
+    }//GEN-LAST:event_COR_ReportSectionMouseClicked
 
     private void clear() {
         ContentPanel.removeAll();
