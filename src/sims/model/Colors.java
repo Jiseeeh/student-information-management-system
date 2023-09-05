@@ -13,4 +13,5 @@ import java.awt.Color;
 public class Colors {
     public static final Color PRIMARY_COLOR = new Color(60, 63, 65);
     public static final Color HOVER_COLOR = new Color(86, 90, 93);
+    public static final Color DISABLED = new Color(37, 39, 40);
 }
