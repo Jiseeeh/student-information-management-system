@@ -412,7 +412,7 @@ public class WindowFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_TOR_ReportSectionMouseClicked
 
     private void COR_ReportSectionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_COR_ReportSectionMouseClicked
-        var cogReportPanel = new CogReportPanel();
+        var cogReportPanel = new CogReportPanel(this.student);
         
         clear();
         
