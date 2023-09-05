@@ -395,7 +395,7 @@ public class TorReportPanel extends javax.swing.JPanel {
         SchoolLogo.setLayout(new java.awt.BorderLayout());
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Logo");
+        jLabel3.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\sims\\assets\\cvsu-logo-mini.png"));
         SchoolLogo.add(jLabel3, java.awt.BorderLayout.CENTER);
 
         SchoolInformation.add(SchoolLogo);
