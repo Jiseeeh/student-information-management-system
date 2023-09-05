@@ -55,6 +55,7 @@ public class NewSignUpFrame extends javax.swing.JFrame {
 
         jPanel13 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
         FormSection = new javax.swing.JPanel();
         ForbiddenTechnique = new javax.swing.JPanel();
         jRadioButton1 = new javax.swing.JRadioButton();
@@ -102,16 +103,11 @@ public class NewSignUpFrame extends javax.swing.JFrame {
 
         jPanel13.setLayout(new java.awt.GridLayout(0, 2));
 
-        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
-        jPanel14.setLayout(jPanel14Layout);
-        jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
-        );
-        jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 720, Short.MAX_VALUE)
-        );
+        jPanel14.setLayout(new java.awt.GridLayout());
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\sims\\assets\\cvsu-logo.png"));
+        jPanel14.add(jLabel4);
 
         jPanel13.add(jPanel14);
 
@@ -739,6 +735,7 @@ public class NewSignUpFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;

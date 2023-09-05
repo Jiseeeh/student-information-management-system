@@ -32,7 +32,6 @@ public class NewLoginFrame extends javax.swing.JFrame {
     public NewLoginFrame() {
         initComponents();
         passwordField.setEchoChar((char)0);
-       
     }
 
     /**
@@ -46,6 +45,7 @@ public class NewLoginFrame extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
         FormSection = new javax.swing.JPanel();
         ForbiddenTechnique = new javax.swing.JPanel();
         jRadioButton1 = new javax.swing.JRadioButton();
@@ -58,6 +58,7 @@ public class NewLoginFrame extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         passwordField = new javax.swing.JPasswordField();
         jPanel4 = new javax.swing.JPanel();
+        showPasswordCheckbox = new javax.swing.JCheckBox();
         loginButton = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
@@ -71,17 +72,11 @@ public class NewLoginFrame extends javax.swing.JFrame {
         jPanel1.setLayout(new java.awt.GridLayout(0, 2));
 
         jPanel2.setOpaque(false);
+        jPanel2.setLayout(new java.awt.GridLayout());
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 646, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 720, Short.MAX_VALUE)
-        );
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\sims\\assets\\cvsu-logo.png"));
+        jPanel2.add(jLabel4);
 
         jPanel1.add(jPanel2);
 
@@ -177,18 +172,17 @@ public class NewLoginFrame extends javax.swing.JFrame {
         FormContainer.add(passwordField);
 
         jPanel4.setOpaque(false);
-        jPanel4.setPreferredSize(new java.awt.Dimension(420, 20));
+        jPanel4.setPreferredSize(new java.awt.Dimension(420, 50));
+        jPanel4.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 420, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
+        showPasswordCheckbox.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
+        showPasswordCheckbox.setText("Show Password");
+        showPasswordCheckbox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showPasswordCheckboxActionPerformed(evt);
+            }
+        });
+        jPanel4.add(showPasswordCheckbox);
 
         FormContainer.add(jPanel4);
 
@@ -203,7 +197,7 @@ public class NewLoginFrame extends javax.swing.JFrame {
         FormContainer.add(loginButton);
 
         jPanel5.setOpaque(false);
-        jPanel5.setPreferredSize(new java.awt.Dimension(420, 20));
+        jPanel5.setPreferredSize(new java.awt.Dimension(420, 10));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -213,7 +207,7 @@ public class NewLoginFrame extends javax.swing.JFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
+            .addGap(0, 10, Short.MAX_VALUE)
         );
 
         FormContainer.add(jPanel5);
@@ -263,7 +257,7 @@ public class NewLoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_passwordFieldFocusGained
 
     private void passwordFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFieldFocusLost
-        if(passwordField.getText().equals("")){
+            if(passwordField.getText().equals("")){
             passwordField.setEchoChar((char)0);
             passwordField.setText("Enter Password");
             passwordField.setForeground(new Color(102,102,102));
@@ -448,6 +442,15 @@ public class NewLoginFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 
+    private void showPasswordCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPasswordCheckboxActionPerformed
+         boolean isChecked = showPasswordCheckbox.isSelected();
+        
+         if (passwordField.getText().equals("Enter Password")) return;
+         
+        if (isChecked) passwordField.setEchoChar((char)0);
+        else passwordField.setEchoChar('*');
+    }//GEN-LAST:event_showPasswordCheckboxActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -493,6 +496,7 @@ public class NewLoginFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -502,6 +506,7 @@ public class NewLoginFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JButton loginButton;
     private javax.swing.JPasswordField passwordField;
+    private javax.swing.JCheckBox showPasswordCheckbox;
     private javax.swing.JTextField studentNumberOrEmailField;
     // End of variables declaration//GEN-END:variables
 }

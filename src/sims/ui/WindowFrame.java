@@ -90,7 +90,7 @@ public class WindowFrame extends javax.swing.JFrame {
 
         Icon1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Icon1.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\sims\\assets\\profile-section.png"));
-        ProfileSection.add(Icon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 53, 60));
+        ProfileSection.add(Icon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 53, 60));
 
         jLabel2.setFont(new java.awt.Font("JetBrains Mono", 0, 24)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

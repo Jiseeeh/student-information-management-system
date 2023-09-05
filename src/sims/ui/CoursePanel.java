@@ -121,7 +121,6 @@ public class CoursePanel extends javax.swing.JPanel {
         CourseSectionHeaderPanel = new javax.swing.JPanel();
         CourseSectionHeaderLabel = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(255, 51, 51));
         setPreferredSize(new java.awt.Dimension(1006, 720));
 
         jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
