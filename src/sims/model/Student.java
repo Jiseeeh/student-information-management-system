@@ -45,8 +45,7 @@ public class Student {
                Fees: %s
                """.formatted(id,email.toString(),middleName,
                        address,sex,guardianName,birthday,
-                       contactNumber ,studentNumber,yearLevel,
-                       currentSem,section,subjects.toString(),
+                       contactNumber ,studentNumber,yearLevel, getCurrentSem(),section,subjects.toString(),
                        fees.toString());
     }
 

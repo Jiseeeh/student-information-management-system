@@ -174,6 +174,7 @@ public class LoginFrame extends javax.swing.JFrame {
                 student.setStudentNumber(studentResultSet.getString("studentNumber"));
                 student.setYearLevel(studentResultSet.getString("yearLevel"));
                 student.setSection(studentResultSet.getString("section"));
+                student.setCurrentSem(studentResultSet.getString("currentSem"));
                 
                 //======================================================================
                 // NULLABLE COLUMNS
