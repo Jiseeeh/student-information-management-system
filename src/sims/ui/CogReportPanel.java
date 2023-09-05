@@ -7,6 +7,7 @@ package sims.ui;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import sims.model.Student;
 
 /**
  *
@@ -16,21 +17,83 @@ public class CogReportPanel extends javax.swing.JPanel {
 
     /**
      * Creates new form CogReportPanel
+     *
+     * @param student
      */
-    public CogReportPanel() {
+    public CogReportPanel(Student student) {
         initComponents();
-        
-        //Sample Variable
-        String[] subjects = {"Mathematics", "Science", "English", "Filipino", "Physical Education", "MAPEH", "Purposive Communication", "Ethics", "FITT 5", "ITEC75"};
-        
-        //Insertion Method 
-        for(String subject : subjects){
-            var label = new JLabel(subject, SwingConstants.CENTER);
-            label.setFont(new Font("JetBrains Mono", Font.PLAIN, 14));
-            CourseTitleColumn.add(label);
+
+        // STUDENT INFO
+        String firstName = student.getEmail().getFirstName();
+        String middleName = student.getMiddleName();
+        String lastName = student.getEmail().getLastName();
+
+        StudentFullName.setText("%s %s %s".formatted(student.getEmail().getFirstName(),
+                student.getMiddleName() == null ? "" : String.valueOf(student.getMiddleName().charAt(0)) + ".",
+                student.getEmail().getLastName()));
+        StudentYearLevel.setText(student.getYearLevel());
+        StudentNumber.setText(student.getStudentNumber());
+
+        String sem = student.getCurrentSem();
+        if (sem.equals("1")) {
+            sem += "st ";
+        } else {
+            sem += "nd ";
         }
+
+        AcademicYear.setText(sem + "2022-2023");
+
+        int totalSubjects = 0,totalCredits = 0;
+        double grade = 0,studentGPA = 0;
+        //Insertion Method 
+        for (var subject : student.getSubjects()) {
+            totalSubjects++;
+            totalCredits += Integer.parseInt(subject.getUnits());
+            grade += subject.getGrade();
+            
+            // COURSE CODE
+            var courseCodeLabel = labelGenerator(subject.getSubjectCode());
+            CourseCodeColumn.add(courseCodeLabel);
+
+            // COURSE TITLE
+            var courseDescLabel = labelGenerator(subject.getSubjectTitle());
+            CourseTitleColumn.add(courseDescLabel);
+
+            // UNIT
+            var unitLabel = labelGenerator(subject.getUnits());
+            UnitColumn.add(unitLabel);
+
+            // GRADE
+            var gradeLabel = labelGenerator(Double.toString(subject.getGrade()));
+            GradeColumn.add(gradeLabel);
+
+            // REMARKS
+            var remarks = subject.getRemarks();
+            if (remarks == null) {
+                remarks = "N/A";
+            }
+
+            var remarksLabel = labelGenerator(remarks);
+            RemarksColumn.add(remarksLabel);
+
+            // FACULTY
+            var facultyLabel = labelGenerator(subject.getFaculty());
+            FacultyColumn.add(facultyLabel);
+        }
+        studentGPA = grade / totalSubjects;
         
-        
+        TotalSubjectsEnrolled.setText(String.valueOf(totalSubjects));
+        TotalCreditsEnrolled.setText(String.valueOf(totalCredits));
+        TotalCreditsEarned.setText(String.valueOf(totalCredits));
+        GPA.setText(Double.toString(studentGPA));
+
+    }
+
+    private JLabel labelGenerator(String content) {
+        var label = new JLabel(content, SwingConstants.CENTER);
+        label.setFont(new Font("JetBrains Mono", Font.PLAIN, 14));
+
+        return label;
     }
 
     /**
@@ -87,7 +150,7 @@ public class CogReportPanel extends javax.swing.JPanel {
         FLabel = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         TableColumns = new javax.swing.JPanel();
-        CouseCodeColumn = new javax.swing.JPanel();
+        CourseCodeColumn = new javax.swing.JPanel();
         CourseTitleColumn = new javax.swing.JPanel();
         UnitColumn = new javax.swing.JPanel();
         GradeColumn = new javax.swing.JPanel();
@@ -348,7 +411,7 @@ public class CogReportPanel extends javax.swing.JPanel {
 
         CCLabel.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 0, new java.awt.Color(0, 0, 0)));
         CCLabel.setPreferredSize(new java.awt.Dimension(106, 40));
-        CCLabel.setLayout(new java.awt.GridLayout());
+        CCLabel.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel11.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -359,7 +422,7 @@ public class CogReportPanel extends javax.swing.JPanel {
 
         CTLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         CTLabel.setPreferredSize(new java.awt.Dimension(385, 40));
-        CTLabel.setLayout(new java.awt.GridLayout());
+        CTLabel.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel12.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -370,7 +433,7 @@ public class CogReportPanel extends javax.swing.JPanel {
 
         ULabel.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 1, new java.awt.Color(0, 0, 0)));
         ULabel.setPreferredSize(new java.awt.Dimension(66, 40));
-        ULabel.setLayout(new java.awt.GridLayout());
+        ULabel.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel13.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -381,7 +444,7 @@ public class CogReportPanel extends javax.swing.JPanel {
 
         GLabel.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         GLabel.setPreferredSize(new java.awt.Dimension(106, 40));
-        GLabel.setLayout(new java.awt.GridLayout());
+        GLabel.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel14.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -392,7 +455,7 @@ public class CogReportPanel extends javax.swing.JPanel {
 
         RLabel.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 0, new java.awt.Color(0, 0, 0)));
         RLabel.setPreferredSize(new java.awt.Dimension(106, 40));
-        RLabel.setLayout(new java.awt.GridLayout());
+        RLabel.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel15.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -403,7 +466,7 @@ public class CogReportPanel extends javax.swing.JPanel {
 
         FLabel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         FLabel.setPreferredSize(new java.awt.Dimension(146, 40));
-        FLabel.setLayout(new java.awt.GridLayout());
+        FLabel.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel16.setFont(new java.awt.Font("JetBrains Mono", 0, 14)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -417,10 +480,10 @@ public class CogReportPanel extends javax.swing.JPanel {
         TableColumns.setPreferredSize(new java.awt.Dimension(915, 270));
         TableColumns.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
 
-        CouseCodeColumn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
-        CouseCodeColumn.setPreferredSize(new java.awt.Dimension(106, 270));
-        CouseCodeColumn.setLayout(new java.awt.GridLayout(10, 1));
-        TableColumns.add(CouseCodeColumn);
+        CourseCodeColumn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 0, 0)));
+        CourseCodeColumn.setPreferredSize(new java.awt.Dimension(106, 270));
+        CourseCodeColumn.setLayout(new java.awt.GridLayout(10, 1));
+        TableColumns.add(CourseCodeColumn);
 
         CourseTitleColumn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 1, new java.awt.Color(0, 0, 0)));
         CourseTitleColumn.setPreferredSize(new java.awt.Dimension(385, 270));
@@ -846,8 +909,8 @@ public class CogReportPanel extends javax.swing.JPanel {
     private javax.swing.JPanel CCLabel;
     private javax.swing.JPanel CTLabel;
     private javax.swing.JPanel Container;
+    private javax.swing.JPanel CourseCodeColumn;
     private javax.swing.JPanel CourseTitleColumn;
-    private javax.swing.JPanel CouseCodeColumn;
     private javax.swing.JPanel FLabel;
     private javax.swing.JPanel FacultyColumn;
     private javax.swing.JPanel Footer;
