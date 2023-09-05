@@ -24,7 +24,7 @@ git clone https://github.com/Jiseeeh/student-information-management-system.git
 ### Add jar files
 
 - Right click **Libraries** and click `Add JAR/Folder`
-- Add pick the jar files one by one and use relative path.
+- Pick the jar files one by one and use relative path.
 - For **AbsoluteLayout.jar**
   - Right click **Libraries** and click `Add Library` and choose **AbsoluteLayout**
 
