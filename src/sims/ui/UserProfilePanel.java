@@ -363,11 +363,11 @@ public class UserProfilePanel extends javax.swing.JPanel {
         // validate fields
         var validator = new Validator();
 
-        if (!validator.isValidText(middleNameField.getText())) {
+        if (!validator.isValidText(middleNameField.getText(),true)) {
             Modal.show("Middle name is not valid.", "Invalid input", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        if (!validator.isValidText(new String(passwordField.getPassword()))) {
+        if (!validator.isValidText(new String(passwordField.getPassword()),false)) {
             Modal.show("Password cannot be invalid.", "Invalid input", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -379,7 +379,7 @@ public class UserProfilePanel extends javax.swing.JPanel {
             Modal.show("Birthday is not valid.", "Invalid input", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        if (!validator.isValidText(guardianNameField.getText())) {
+        if (!validator.isValidText(guardianNameField.getText(),true)) {
             Modal.show("Guardian name is not valid.", "Invalid input", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -387,7 +387,7 @@ public class UserProfilePanel extends javax.swing.JPanel {
             Modal.show("Alternative email is not valid.", "Invalid input", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        if (!validator.isValidText(addressField.getText())) {
+        if (!validator.isValidText(addressField.getText(),false)) {
             Modal.show("Address is not valid.", "Invalid input", JOptionPane.WARNING_MESSAGE);
             return;
         }

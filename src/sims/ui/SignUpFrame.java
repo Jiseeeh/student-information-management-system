@@ -224,12 +224,12 @@ public class SignUpFrame extends javax.swing.JFrame {
     private void signUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpButtonActionPerformed
         var validator = new Validator();
 
-        if (!validator.isValidText(firstNameField.getText())) {
+        if (!validator.isValidText(firstNameField.getText(),true)) {
             Modal.show("First Name must be valid.", "Invalid First Name", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        if (!validator.isValidText(lastNameField.getText())) {
+        if (!validator.isValidText(lastNameField.getText(),true)) {
             Modal.show("Last Name must be valid.", "Invalid Last Name", JOptionPane.WARNING_MESSAGE);
             return;
         }

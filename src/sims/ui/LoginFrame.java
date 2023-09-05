@@ -128,12 +128,12 @@ public class LoginFrame extends javax.swing.JFrame {
         String password = new String(passwordField.getPassword());
         var validator = new Validator();
         
-        if (!validator.isValidText(studentNumberOrEmailField.getText())) {
+        if (!validator.isValidText(studentNumberOrEmailField.getText(),false)) {
             Modal.show("Student/Email field must have a value.", "Invalid Input", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        if (!validator.isValidText(password)) {
+        if (!validator.isValidText(password,false)) {
             Modal.show("Password field must be valid.", "Invalid Input", JOptionPane.WARNING_MESSAGE);
             return;
         }
