@@ -63,9 +63,6 @@ public class WindowFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        SidebarContainer.setBackground(new java.awt.Color(217, 217, 217));
-
-        UserDetailsSection.setBackground(new java.awt.Color(217, 217, 217));
         UserDetailsSection.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 25));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\sims\\assets\\default_user-icon.png"));
@@ -75,11 +72,8 @@ public class WindowFrame extends javax.swing.JFrame {
         studentNameLabel.setText("Jimboy, Fabila");
         UserDetailsSection.add(studentNameLabel);
 
-        SideBar.setBackground(new java.awt.Color(217, 217, 217));
         SideBar.setLayout(new java.awt.GridLayout(5, 1, 0, 30));
 
-        ProfileSection.setBackground(new java.awt.Color(215, 215, 215));
-        ProfileSection.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         ProfileSection.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ProfileSection.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -105,8 +99,6 @@ public class WindowFrame extends javax.swing.JFrame {
 
         SideBar.add(ProfileSection);
 
-        CoursesSection.setBackground(new java.awt.Color(215, 215, 215));
-        CoursesSection.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         CoursesSection.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         CoursesSection.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -136,7 +128,7 @@ public class WindowFrame extends javax.swing.JFrame {
                 .addComponent(Icon2, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         CoursesSectionLayout.setVerticalGroup(
             CoursesSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,7 +136,7 @@ public class WindowFrame extends javax.swing.JFrame {
                 .addGroup(CoursesSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(CoursesSectionLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(Icon2, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
+                        .addComponent(Icon2, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
                     .addGroup(CoursesSectionLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabel3)
@@ -154,8 +146,6 @@ public class WindowFrame extends javax.swing.JFrame {
 
         SideBar.add(CoursesSection);
 
-        PayFeesSection.setBackground(new java.awt.Color(215, 215, 215));
-        PayFeesSection.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         PayFeesSection.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         PayFeesSection.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -185,7 +175,7 @@ public class WindowFrame extends javax.swing.JFrame {
                 .addComponent(Icon3, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         PayFeesSectionLayout.setVerticalGroup(
             PayFeesSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,7 +183,7 @@ public class WindowFrame extends javax.swing.JFrame {
                 .addGroup(PayFeesSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PayFeesSectionLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(Icon3, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
+                        .addComponent(Icon3, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
                     .addGroup(PayFeesSectionLayout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(jLabel4)
@@ -203,8 +193,6 @@ public class WindowFrame extends javax.swing.JFrame {
 
         SideBar.add(PayFeesSection);
 
-        TOR_ReportSection.setBackground(new java.awt.Color(215, 215, 215));
-        TOR_ReportSection.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         TOR_ReportSection.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         TOR_ReportSection.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -234,7 +222,7 @@ public class WindowFrame extends javax.swing.JFrame {
                 .addComponent(Icon, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         TOR_ReportSectionLayout.setVerticalGroup(
             TOR_ReportSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -242,7 +230,7 @@ public class WindowFrame extends javax.swing.JFrame {
                 .addGroup(TOR_ReportSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(TOR_ReportSectionLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(Icon, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
+                        .addComponent(Icon, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
                     .addGroup(TOR_ReportSectionLayout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addComponent(jLabel1)
@@ -252,8 +240,6 @@ public class WindowFrame extends javax.swing.JFrame {
 
         SideBar.add(TOR_ReportSection);
 
-        COR_ReportSection.setBackground(new java.awt.Color(215, 215, 215));
-        COR_ReportSection.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         COR_ReportSection.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         COR_ReportSection.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -283,7 +269,7 @@ public class WindowFrame extends javax.swing.JFrame {
                 .addComponent(Icon4, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         COR_ReportSectionLayout.setVerticalGroup(
             COR_ReportSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,7 +277,7 @@ public class WindowFrame extends javax.swing.JFrame {
                 .addGroup(COR_ReportSectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(COR_ReportSectionLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(Icon4, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
+                        .addComponent(Icon4, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
                     .addGroup(COR_ReportSectionLayout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addComponent(jLabel5)
@@ -317,7 +303,6 @@ public class WindowFrame extends javax.swing.JFrame {
                 .addContainerGap(122, Short.MAX_VALUE))
         );
 
-        ContentPanel.setBackground(new java.awt.Color(255, 255, 255));
         ContentPanel.setLayout(new java.awt.CardLayout());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

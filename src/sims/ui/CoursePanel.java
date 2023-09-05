@@ -35,7 +35,7 @@ public class CoursePanel extends javax.swing.JPanel {
             var subjectCourseCodePanel = new JPanel();
             subjectCourseCodePanel.add(subjectCourseCodeLabel);
             subjectCourseCodePanel.setLayout(new GridLayout());
-            subjectCourseCodePanel.setBackground(Colors.PRIMARY_COLOR);
+//            subjectCourseCodePanel.setBackground(Colors.PRIMARY_COLOR);
             subjectCourseCodePanel.setPreferredSize(new Dimension(250, 50));
 
             CourseCodeColumn.add(subjectCourseCodePanel);
@@ -46,7 +46,7 @@ public class CoursePanel extends javax.swing.JPanel {
             JPanel subjectCourseDescPanel = new JPanel();
             subjectCourseDescPanel.add(subjectCourseDescLabel);
             subjectCourseDescPanel.setLayout(new GridLayout());
-            subjectCourseDescPanel.setBackground(Colors.PRIMARY_COLOR);
+//            subjectCourseDescPanel.setBackground(Colors.PRIMARY_COLOR);
             subjectCourseDescPanel.setPreferredSize(new Dimension(420, 50));
 
             CourseDescriptionColumn.add(subjectCourseDescPanel);
@@ -56,7 +56,7 @@ public class CoursePanel extends javax.swing.JPanel {
             var subjectCourseUnitsPanel = new JPanel();
             subjectCourseUnitsPanel.add(subjectCourseUnitsLabel);
             subjectCourseUnitsPanel.setLayout(new GridLayout());
-            subjectCourseUnitsPanel.setBackground(Colors.PRIMARY_COLOR);
+//            subjectCourseUnitsPanel.setBackground(Colors.PRIMARY_COLOR);
             subjectCourseUnitsPanel.setPreferredSize(new Dimension(150, 50));
             totalUnits += Integer.parseInt(subject.getUnits());
             CourseUnitColumn.add(subjectCourseUnitsPanel);
@@ -66,7 +66,7 @@ public class CoursePanel extends javax.swing.JPanel {
             var subjectCourseSectionPanel = new JPanel();
             subjectCourseSectionPanel.add(subjectCourseSectionLabel);
             subjectCourseSectionPanel.setLayout(new GridLayout());
-            subjectCourseSectionPanel.setBackground(Colors.PRIMARY_COLOR);
+//            subjectCourseSectionPanel.setBackground(Colors.PRIMARY_COLOR);
             subjectCourseSectionPanel.setPreferredSize(new Dimension(186, 50));
 
             CourseSectionColumn.add(subjectCourseSectionPanel);
@@ -84,7 +84,7 @@ public class CoursePanel extends javax.swing.JPanel {
         var totalUnitsPanel = new JPanel();
         totalUnitsPanel.add(totalUnitsLabel);
         totalUnitsPanel.setLayout(new GridLayout());
-        totalUnitsPanel.setBackground(Colors.PRIMARY_COLOR);
+//        totalUnitsPanel.setBackground(Colors.PRIMARY_COLOR);
         totalUnitsPanel.setPreferredSize(new Dimension(150, 50));
         CourseUnitColumn.add(totalUnitsPanel);
     }
@@ -126,7 +126,6 @@ public class CoursePanel extends javax.swing.JPanel {
 
         jPanel1.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
 
-        CourseCodeColumn.setBackground(new java.awt.Color(217, 217, 217));
         CourseCodeColumn.setPreferredSize(new java.awt.Dimension(250, 720));
         CourseCodeColumn.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
 
@@ -138,14 +137,13 @@ public class CoursePanel extends javax.swing.JPanel {
         CourseCodeHeaderLabel.setFont(new java.awt.Font("JetBrains Mono", 0, 36)); // NOI18N
         CourseCodeHeaderLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         CourseCodeHeaderLabel.setText("Course Code");
+        CourseCodeHeaderLabel.setOpaque(true);
         CourseCodeHeaderPanel.add(CourseCodeHeaderLabel);
 
         CourseCodeColumn.add(CourseCodeHeaderPanel);
 
         jPanel1.add(CourseCodeColumn);
 
-        CourseDescriptionColumn.setBackground(new java.awt.Color(217, 217, 217));
-        CourseDescriptionColumn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 2, 0, 2, new java.awt.Color(205, 205, 205)));
         CourseDescriptionColumn.setPreferredSize(new java.awt.Dimension(420, 720));
         CourseDescriptionColumn.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
 
@@ -157,14 +155,13 @@ public class CoursePanel extends javax.swing.JPanel {
         CourseDescriptionHeaderLabel.setFont(new java.awt.Font("JetBrains Mono", 0, 36)); // NOI18N
         CourseDescriptionHeaderLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         CourseDescriptionHeaderLabel.setText("Course Description");
+        CourseDescriptionHeaderLabel.setOpaque(true);
         CourseDescriptionHeaderPanel.add(CourseDescriptionHeaderLabel);
 
         CourseDescriptionColumn.add(CourseDescriptionHeaderPanel);
 
         jPanel1.add(CourseDescriptionColumn);
 
-        CourseUnitColumn.setBackground(new java.awt.Color(217, 217, 217));
-        CourseUnitColumn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 2, new java.awt.Color(205, 205, 205)));
         CourseUnitColumn.setPreferredSize(new java.awt.Dimension(150, 720));
         CourseUnitColumn.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
 
@@ -176,13 +173,13 @@ public class CoursePanel extends javax.swing.JPanel {
         CourseUnitHeaderLabel.setFont(new java.awt.Font("JetBrains Mono", 0, 36)); // NOI18N
         CourseUnitHeaderLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         CourseUnitHeaderLabel.setText("Unit");
+        CourseUnitHeaderLabel.setOpaque(true);
         CourseUnitHeaderPanel.add(CourseUnitHeaderLabel);
 
         CourseUnitColumn.add(CourseUnitHeaderPanel);
 
         jPanel1.add(CourseUnitColumn);
 
-        CourseSectionColumn.setBackground(new java.awt.Color(217, 217, 217));
         CourseSectionColumn.setPreferredSize(new java.awt.Dimension(186, 720));
         CourseSectionColumn.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
 
@@ -194,6 +191,7 @@ public class CoursePanel extends javax.swing.JPanel {
         CourseSectionHeaderLabel.setFont(new java.awt.Font("JetBrains Mono", 0, 36)); // NOI18N
         CourseSectionHeaderLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         CourseSectionHeaderLabel.setText("Section");
+        CourseSectionHeaderLabel.setOpaque(true);
         CourseSectionHeaderPanel.add(CourseSectionHeaderLabel);
 
         CourseSectionColumn.add(CourseSectionHeaderPanel);

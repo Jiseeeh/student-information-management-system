@@ -137,6 +137,7 @@ public class PayFeesPanel extends javax.swing.JPanel {
         DueDateHeadingText1.setFont(new java.awt.Font("JetBrains Mono", 0, 36)); // NOI18N
         DueDateHeadingText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         DueDateHeadingText1.setText("Due Date");
+        DueDateHeadingText1.setOpaque(true);
         DueDateHeading.add(DueDateHeadingText1);
 
         HeadingSectionPanel.add(DueDateHeading);
@@ -148,6 +149,7 @@ public class PayFeesPanel extends javax.swing.JPanel {
         FeeTitleHeadingText1.setFont(new java.awt.Font("JetBrains Mono", 0, 36)); // NOI18N
         FeeTitleHeadingText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         FeeTitleHeadingText1.setText("Title");
+        FeeTitleHeadingText1.setOpaque(true);
         FeeTitleHeading.add(FeeTitleHeadingText1);
 
         HeadingSectionPanel.add(FeeTitleHeading);
@@ -159,6 +161,7 @@ public class PayFeesPanel extends javax.swing.JPanel {
         AmountHeadingText1.setFont(new java.awt.Font("JetBrains Mono", 0, 36)); // NOI18N
         AmountHeadingText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         AmountHeadingText1.setText("Amount");
+        AmountHeadingText1.setOpaque(true);
         AmountHeading.add(AmountHeadingText1);
 
         HeadingSectionPanel.add(AmountHeading);
@@ -170,29 +173,26 @@ public class PayFeesPanel extends javax.swing.JPanel {
         StatusHeadingText1.setFont(new java.awt.Font("JetBrains Mono", 0, 36)); // NOI18N
         StatusHeadingText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         StatusHeadingText1.setText("Status");
+        StatusHeadingText1.setOpaque(true);
         StatusHeading.add(StatusHeadingText1);
 
         HeadingSectionPanel.add(StatusHeading);
 
         MainContentSection.add(HeadingSectionPanel);
 
-        DueDateColumn.setBackground(new java.awt.Color(217, 217, 217));
         DueDateColumn.setPreferredSize(new java.awt.Dimension(300, 450));
         DueDateColumn.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
         MainContentSection.add(DueDateColumn);
 
-        FeeTitleColumn.setBackground(new java.awt.Color(217, 217, 217));
         FeeTitleColumn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 2, 0, 2, new java.awt.Color(205, 205, 205)));
         FeeTitleColumn.setPreferredSize(new java.awt.Dimension(300, 450));
         FeeTitleColumn.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
         MainContentSection.add(FeeTitleColumn);
 
-        AmountColumn.setBackground(new java.awt.Color(217, 217, 217));
         AmountColumn.setPreferredSize(new java.awt.Dimension(190, 450));
         AmountColumn.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
         MainContentSection.add(AmountColumn);
 
-        StatusColumn.setBackground(new java.awt.Color(217, 217, 217));
         StatusColumn.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 2, 0, 0, new java.awt.Color(205, 205, 205)));
         StatusColumn.setPreferredSize(new java.awt.Dimension(216, 450));
         StatusColumn.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
@@ -203,7 +203,6 @@ public class PayFeesPanel extends javax.swing.JPanel {
         FooterSection.setPreferredSize(new java.awt.Dimension(1006, 160));
         FooterSection.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
 
-        jPanel3.setOpaque(false);
         jPanel3.setPreferredSize(new java.awt.Dimension(503, 200));
         jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
@@ -217,7 +216,6 @@ public class PayFeesPanel extends javax.swing.JPanel {
 
         FooterSection.add(jPanel3);
 
-        jPanel5.setOpaque(false);
         jPanel5.setPreferredSize(new java.awt.Dimension(503, 200));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
