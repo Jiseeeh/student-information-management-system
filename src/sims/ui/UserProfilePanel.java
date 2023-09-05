@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import sims.database.DatabaseConnector;
 import sims.helper.Validator;
+import sims.model.Colors;
 import sims.model.Student;
 
 /**
@@ -332,6 +333,12 @@ public class UserProfilePanel extends javax.swing.JPanel {
 
     private void initStudentData() {         
                 //======================================================================
+                // DEFAULT COLUMNS
+                //======================================================================                
+                altEmailField.setText(student.getEmail().getInstitution());
+                
+                
+                //======================================================================
                 // NULLABLE COLUMNS
                 //======================================================================                
                 if (student.getMiddleName() != null) middleNameField.setText(student.getMiddleName());
@@ -351,12 +358,19 @@ public class UserProfilePanel extends javax.swing.JPanel {
                 lastNameField.setText(student.getEmail().getLastName());
                 sexComboBox.setSelectedItem(student.getSex());
                 studentSectionLabel.setText("%s-%s".formatted(student.getYearLevel(),student.getSection()));
+                
 
                 //======================================================================
                 // DISABLED FIELDS
                 //======================================================================  
                 firstNameField.setFocusable(false);
+                firstNameField.setBackground(Colors.DISABLED);
+                
                 lastNameField.setFocusable(false);
+                lastNameField.setBackground(Colors.DISABLED);
+                
+                sexComboBox.setEnabled(false);
+                sexComboBox.setBackground(Colors.DISABLED);
     }
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
@@ -383,10 +397,17 @@ public class UserProfilePanel extends javax.swing.JPanel {
             Modal.show("Guardian name is not valid.", "Invalid input", JOptionPane.WARNING_MESSAGE);
             return;
         }
+        
         if (!altEmailField.getText().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
             Modal.show("Alternative email is not valid.", "Invalid input", JOptionPane.WARNING_MESSAGE);
             return;
         }
+        
+        if (altEmailField.getText().equals(student.getEmail().getEmail())) {
+            Modal.show("Alternative email cannot be the same as your institution email", "Invalid alt email", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
         if (!validator.isValidText(addressField.getText(),false)) {
             Modal.show("Address is not valid.", "Invalid input", JOptionPane.WARNING_MESSAGE);
             return;
