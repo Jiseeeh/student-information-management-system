@@ -596,7 +596,7 @@ public class NewSignUpFrame extends javax.swing.JFrame {
             String message = ex.getMessage().contains("Duplicate") ? "Student Number is already taken." : "Something went wrong";
             Modal.show(message, "Error", JOptionPane.ERROR_MESSAGE);
 
-            Logger.getLogger(SignUpFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NewSignUpFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_signUpButtonActionPerformed
 

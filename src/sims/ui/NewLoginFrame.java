@@ -444,7 +444,7 @@ public class NewLoginFrame extends javax.swing.JFrame {
             
             this.dispose();
         } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NewLoginFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 
