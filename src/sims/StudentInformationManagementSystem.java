@@ -26,8 +26,6 @@ public class StudentInformationManagementSystem {
             System.out.println("Error on setting look and feel.");
         }
         
-   
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             var mainFrame = new MainFrame();
