@@ -7,7 +7,18 @@ package sims.ui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
+import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import sims.database.DatabaseConnector;
+import sims.helper.Validator;
+import sims.model.Email;
+import sims.model.Fee;
+import sims.model.Student;
+import sims.model.StudentSubject;
 
 /**
  *
@@ -87,7 +98,7 @@ public class NewLoginFrame extends javax.swing.JFrame {
             .addGroup(ForbiddenTechniqueLayout.createSequentialGroup()
                 .addGap(63, 63, 63)
                 .addComponent(jRadioButton1)
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addContainerGap(158, Short.MAX_VALUE))
         );
         ForbiddenTechniqueLayout.setVerticalGroup(
             ForbiddenTechniqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,7 +110,7 @@ public class NewLoginFrame extends javax.swing.JFrame {
         FormSection.add(ForbiddenTechnique);
 
         FormHeader.setPreferredSize(new java.awt.Dimension(640, 100));
-        FormHeader.setLayout(new java.awt.GridLayout());
+        FormHeader.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel1.setFont(new java.awt.Font("JetBrains Mono", 1, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -110,7 +121,7 @@ public class NewLoginFrame extends javax.swing.JFrame {
         FormSection.add(FormHeader);
 
         ImgContainer.setPreferredSize(new java.awt.Dimension(640, 190));
-        ImgContainer.setLayout(new java.awt.GridLayout());
+        ImgContainer.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\sims\\assets\\user.png"));
@@ -184,6 +195,11 @@ public class NewLoginFrame extends javax.swing.JFrame {
         loginButton.setFont(new java.awt.Font("JetBrains Mono", 0, 18)); // NOI18N
         loginButton.setText("Login");
         loginButton.setPreferredSize(new java.awt.Dimension(420, 40));
+        loginButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginButtonActionPerformed(evt);
+            }
+        });
         FormContainer.add(loginButton);
 
         jPanel5.setOpaque(false);
@@ -286,6 +302,151 @@ public class NewLoginFrame extends javax.swing.JFrame {
         var newSignUpFrame = new NewSignUpFrame();
         newSignUpFrame.setVisible(true);
     }//GEN-LAST:event_SignUpLabelMouseClicked
+
+    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+        String password = new String(passwordField.getPassword());
+        var validator = new Validator();
+        
+        if (!validator.isValidText(studentNumberOrEmailField.getText(),false)) {
+            Modal.show("Student/Email field must have a value.", "Invalid Input", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (!validator.isValidText(password,false)) {
+            Modal.show("Password field must be valid.", "Invalid Input", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        String selectStudentQuery = """
+                      SELECT * FROM student 
+                      INNER JOIN student_info
+                      	on student.id = student_info.studentId
+                      WHERE password = '%s'
+                      AND studentNumber = '%s'
+                      OR email = '%s'
+                      """.formatted(password,studentNumberOrEmailField.getText(),studentNumberOrEmailField.getText());
+        
+        try (var conn = DatabaseConnector.getConnection();
+             var selectStudentStmt = conn.createStatement();
+             var studentResultSet = selectStudentStmt.executeQuery(selectStudentQuery);) {
+            
+            // if there are no results returned
+            if (!studentResultSet.isBeforeFirst()) {
+                Modal.show("No student found!", "Notice", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            
+            // TODO OPTIONAL: set new student's info, current sem, section etc.
+            //======================================================================
+            // STUDENT INFO QUERY
+            //======================================================================
+            var student = new Student(); // maybe we can serialize/save this to save the current logged in user.
+            while (studentResultSet.next()) {
+                var studentEmail = new Email(studentResultSet.getString("firstName"), studentResultSet.getString("lastName"), studentResultSet.getString("department"));
+                
+                //======================================================================
+                // ABSOLUTE COLUMNS
+                //======================================================================  
+                studentEmail.setPassword(studentResultSet.getString("password"));
+                student.setEmail(studentEmail);
+                student.setId(studentResultSet.getInt("id"));
+                student.setStudentNumber(studentResultSet.getString("studentNumber"));
+                student.setYearLevel(studentResultSet.getString("yearLevel"));
+                student.setSection(studentResultSet.getString("section"));
+                student.setCurrentSem(studentResultSet.getString("currentSem"));
+                
+                //======================================================================
+                // NULLABLE COLUMNS
+                //======================================================================    
+                if (studentResultSet.getString("middleName") != null) student.setMiddleName(studentResultSet.getString("middleName"));
+                if (studentResultSet.getString("sex") != null) student.setSex(studentResultSet.getString("sex"));
+                if (studentResultSet.getString("contactNumber") != null) student.setContactNumber(studentResultSet.getString("contactNumber"));
+                if (studentResultSet.getString("birthday") != null) student.setBirthday(studentResultSet.getString("birthday"));
+                if (studentResultSet.getString("guardianName") != null) student.setGuardianName(studentResultSet.getString("guardianName"));
+                if (studentResultSet.getString("alternativeEmail") != null) studentEmail.setReserveEmail(studentResultSet.getString("alternativeEmail"));
+                if (studentResultSet.getString("address") != null) student.setAddress(studentResultSet.getString("address"));
+            }
+            
+            //======================================================================
+            // STUDENT SUBJECTS QUERY
+            //======================================================================
+            String selectStudentSubjectsQuery = """
+                                                SELECT subject.subjectCode,
+                                                subject.faculty,
+                                                subject.subjectTitle,
+                                                subject.remarks,
+                                                subject.units,
+                                                subject.grade,
+                                                subject.semester,
+                                                subject.yearLevel
+                                                FROM subject
+                                                	inner join student
+                                                	on subject.studentId  = student.id
+                                                where subject.studentId = %d
+                                                """.formatted(student.getId());
+            
+            var selectStudentSubjectsStmt = conn.prepareStatement(selectStudentSubjectsQuery);
+            var studentSubjectsResultSet = selectStudentSubjectsStmt.executeQuery();
+            
+            var studentSubjects = new LinkedList<StudentSubject>();
+            
+            while(studentSubjectsResultSet.next()) {
+                var subject = new StudentSubject(studentSubjectsResultSet.getString("subjectCode"),
+                        studentSubjectsResultSet.getString("subjectTitle"), 
+                        studentSubjectsResultSet.getString("faculty"), 
+                        studentSubjectsResultSet.getString("units"), 
+                        studentSubjectsResultSet.getString("yearLevel"),studentSubjectsResultSet.getString("semester"));
+                subject.setGrade(studentSubjectsResultSet.getDouble("grade"));
+                
+                studentSubjects.add(subject);
+            }
+            
+            // set student instance subjects
+            student.setSubjects(studentSubjects);
+            selectStudentSubjectsStmt.close();
+            studentSubjectsResultSet.close();
+            
+            //======================================================================
+            // STUDENT FEES QUERY
+            //======================================================================
+            
+            String selectStudentFeesQuery = """
+                                       SELECT fee.id,fee.title,fee.isPending,fee.amount,fee.dueDate
+                                       FROM fee
+                                       INNER JOIN student
+                                       	ON student.id = fee.studentId
+                                       WHERE fee.studentId = %d
+                                       """.formatted(student.getId());
+            var selectStudentFeesStmt = conn.prepareStatement(selectStudentFeesQuery);
+            var studentFeesResultSet = selectStudentFeesStmt.executeQuery();
+            
+            var studentFees = new LinkedList<Fee>();
+            
+            while(studentFeesResultSet.next()) {
+                var fee = new Fee(studentFeesResultSet.getString("title"),studentFeesResultSet.getString("dueDate"),studentFeesResultSet.getDouble("amount"));
+                fee.setId(studentFeesResultSet.getInt("id"));
+                fee.setIsPending(studentFeesResultSet.getBoolean("isPending"));
+                
+                studentFees.add(fee);
+            }
+            
+            student.setFees(studentFees);
+            
+            selectStudentFeesStmt.close();
+            studentFeesResultSet.close();
+            
+            System.out.println(student);
+            Modal.show("You will now be redirected to the dashboard.", "Login success!", JOptionPane.INFORMATION_MESSAGE);
+            
+            var homepage = new WindowFrame(student);
+            homepage.setLocationRelativeTo(null);
+            homepage.setVisible(true);
+            
+            this.dispose();
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_loginButtonActionPerformed
 
     /**
      * @param args the command line arguments

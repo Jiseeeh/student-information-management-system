@@ -6,8 +6,30 @@ package sims.ui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 import java.awt.font.TextAttribute;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import sims.Abstract.DefaultSubject;
+import sims.database.DatabaseConnector;
+import sims.helper.Validator;
+import sims.model.DASSubjects;
+import sims.model.DCSComSciSubjects;
+import sims.model.DCSInformationTechSubjects;
+import sims.model.DOCSubjects;
+import sims.model.DOEMajorEnglishSubjects;
+import sims.model.DOEMajorMathSubjects;
+import sims.model.Email;
+import sims.model.Fee;
+import sims.model.StudentSubject;
 
 /**
  *
@@ -118,7 +140,7 @@ public class NewSignUpFrame extends javax.swing.JFrame {
         FormSection.add(ForbiddenTechnique);
 
         jPanel16.setPreferredSize(new java.awt.Dimension(640, 70));
-        jPanel16.setLayout(new java.awt.GridLayout());
+        jPanel16.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel1.setFont(new java.awt.Font("JetBrains Mono", 1, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -144,7 +166,7 @@ public class NewSignUpFrame extends javax.swing.JFrame {
         FormSection.add(jPanel3);
 
         jPanel21.setPreferredSize(new java.awt.Dimension(640, 190));
-        jPanel21.setLayout(new java.awt.GridLayout());
+        jPanel21.setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\sims\\assets\\user.png"));
@@ -354,6 +376,11 @@ public class NewSignUpFrame extends javax.swing.JFrame {
         signUpButton.setFont(new java.awt.Font("JetBrains Mono", 0, 18)); // NOI18N
         signUpButton.setText("Sign Up");
         signUpButton.setPreferredSize(new java.awt.Dimension(420, 40));
+        signUpButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                signUpButtonActionPerformed(evt);
+            }
+        });
         FormContainer.add(signUpButton);
 
         jPanel23.setOpaque(false);
@@ -420,9 +447,9 @@ public class NewSignUpFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_SignInLabelMouseExited
 
     private void firstNameFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_firstNameFieldFocusGained
-        if(firstNameField.getText().equals("First Name")){
+        if (firstNameField.getText().equals("First Name")) {
             firstNameField.setText("");
-            firstNameField.setForeground(new Color(187,187,187));
+            firstNameField.setForeground(new Color(187, 187, 187));
         }
     }//GEN-LAST:event_firstNameFieldFocusGained
 
@@ -433,39 +460,234 @@ public class NewSignUpFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_SignInLabelMouseClicked
 
     private void firstNameFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_firstNameFieldFocusLost
-        if(firstNameField.getText().equals("")){
+        if (firstNameField.getText().equals("")) {
             firstNameField.setText("First Name");
-            firstNameField.setForeground(new Color(102,102,102));
+            firstNameField.setForeground(new Color(102, 102, 102));
         }
     }//GEN-LAST:event_firstNameFieldFocusLost
 
     private void lastNameFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lastNameFieldFocusGained
-        if(lastNameField.getText().equals("Last Name")){
+        if (lastNameField.getText().equals("Last Name")) {
             lastNameField.setText("");
-            lastNameField.setForeground(new Color(187,187,187));
+            lastNameField.setForeground(new Color(187, 187, 187));
         }
     }//GEN-LAST:event_lastNameFieldFocusGained
 
     private void lastNameFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_lastNameFieldFocusLost
-        if(lastNameField.getText().equals("")){
+        if (lastNameField.getText().equals("")) {
             lastNameField.setText("Last Name");
-            lastNameField.setForeground(new Color(102,102,102));
+            lastNameField.setForeground(new Color(102, 102, 102));
         }
     }//GEN-LAST:event_lastNameFieldFocusLost
 
     private void studentNumberFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_studentNumberFieldFocusGained
-        if(studentNumberField.getText().equals("Student Number")){
+        if (studentNumberField.getText().equals("Student Number")) {
             studentNumberField.setText("");
-            studentNumberField.setForeground(new Color(187,187,187));
+            studentNumberField.setForeground(new Color(187, 187, 187));
         }
     }//GEN-LAST:event_studentNumberFieldFocusGained
 
     private void studentNumberFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_studentNumberFieldFocusLost
-        if(studentNumberField.getText().equals("")){
+        if (studentNumberField.getText().equals("")) {
             studentNumberField.setText("Student Number");
-            studentNumberField.setForeground(new Color(102,102,102));
+            studentNumberField.setForeground(new Color(102, 102, 102));
         }
     }//GEN-LAST:event_studentNumberFieldFocusLost
+
+    private void signUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpButtonActionPerformed
+        var validator = new Validator();
+
+        if (firstNameField.getText().equals("First Name") || !validator.isValidText(firstNameField.getText(), true)) {
+            Modal.show("First Name must be valid.", "Invalid First Name", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (lastNameField.getText().equals("Last Name") || !validator.isValidText(lastNameField.getText(), true)) {
+            Modal.show("Last Name must be valid.", "Invalid Last Name", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // TODO: add max length of student num
+        if (!studentNumberField.getText().matches("[0-9]+")) {
+            Modal.show("Student Number must only be numbers.", "Invalid Student Number", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        var email = new Email(firstNameField.getText(), lastNameField.getText(), departmentComboBox.getSelectedItem().toString());
+        System.out.println(email.showInfo());
+
+        String studentQuery = "INSERT INTO student (firstName,lastName,department,studentNumber,email,password,yearLevel,section,currentSem,sex) VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')"
+                .formatted(email.getFirstName(),
+                        email.getLastName(),
+                        email.getDepartment(),
+                        studentNumberField.getText(),
+                        email.getEmail(),
+                        email.getPassword(),
+                        yearLevelComboBox.getSelectedItem().toString(),
+                        sectionComboBox.getSelectedItem().toString(),
+                        currentSemComboBox.getSelectedItem().toString(),
+                        sexComboBox.getSelectedItem().toString());
+
+        try (var conn = DatabaseConnector.getConnection(); var insertStudentStmt = conn.prepareStatement(studentQuery)) {
+
+            int rowsInserted = insertStudentStmt.executeUpdate();
+
+            if (rowsInserted > 0) {
+                System.out.println("Student inserted into the Database.");
+                Modal.show("Success, you can now login. The password is in your clipboard.", "Login Success", JOptionPane.INFORMATION_MESSAGE);
+                Toolkit.getDefaultToolkit()
+                        .getSystemClipboard()
+                        .setContents(new StringSelection(email.getPassword()), null);
+
+                var keys = insertStudentStmt.getGeneratedKeys();
+
+                if (keys.next()) {
+                    int id = keys.getInt(1);
+                    System.out.println("Inserted id: " + id);
+
+                    String studentInfoQuery = "INSERT INTO student_info (studentId) VALUES (%d)".formatted(id);
+                    var insertStudentInfoStmt = conn.prepareStatement(studentInfoQuery);
+
+                    int insertedStudentInfoRows = insertStudentInfoStmt.executeUpdate();
+
+                    if (insertedStudentInfoRows > 0) {
+                        System.out.println("Student Info was INSERTED into the Database.");
+                    } else {
+                        System.out.println("Student Info was NOT INSERTED into the Database");
+                    }
+
+                    insertStudentInfoStmt.close();
+
+                    //==========================================================
+                    // INSERT DEEFAULT SUBJECTS
+                    //==========================================================
+                    String yearLevel = yearLevelComboBox.getSelectedItem().toString();
+                    String currentSem = currentSemComboBox.getSelectedItem().toString();
+                    String department = email.getDepartment().toUpperCase();
+
+                    insertSubjectsBasedOnDepartment(id, department, yearLevel, currentSem, conn);
+
+                    //==========================================================
+                    // INSERT DEEFAULT FEES
+                    //==========================================================
+                    // FOR NOW, ALL HAVE SOCIETY FEES
+                    String nextMonth = LocalDate.now().plusMonths(1).toString();
+                    var socFee = new Fee("Society Fee", nextMonth, 150);
+
+                    String insertSocFeeQuery = "INSERT INTO fee (studentId,title,isPending,amount,dueDate) VALUES (%d,'%s','%d','%f','%s')"
+                            .formatted(id, socFee.getTitle(), socFee.getIsPending() ? 1 : 0, socFee.getAmount(), socFee.getDueDate());
+
+                    var insertSocFeeStmt = conn.prepareStatement(insertSocFeeQuery);
+
+                    int insertedSocFeeRows = insertSocFeeStmt.executeUpdate();
+
+                    System.out.println("INSERTED %d FEE".formatted(insertedSocFeeRows));
+                    insertSocFeeStmt.close();
+
+                }
+                this.dispose();
+
+                var loginFrame = new NewLoginFrame();
+                loginFrame.setLocationRelativeTo(null);
+                loginFrame.setVisible(true);
+            }
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            String message = ex.getMessage().contains("Duplicate") ? "Student Number is already taken." : "Something went wrong";
+            Modal.show(message, "Error", JOptionPane.ERROR_MESSAGE);
+
+            Logger.getLogger(SignUpFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_signUpButtonActionPerformed
+
+    private void insertSubjectsBasedOnDepartment(int studentId, String department, String yearLevel, String currentSem, Connection conn) throws SQLException {
+        DefaultSubject defaultSubjects;
+        List<StudentSubject> subjects = new LinkedList<>();
+
+        switch (department) {
+            case "DOC" -> {
+                defaultSubjects = new DOCSubjects();
+                subjects = getSubjectsByYearLevelAndSemester(yearLevel, currentSem, defaultSubjects);
+            }
+
+            case "DCS-CS" -> {
+                defaultSubjects = new DCSComSciSubjects();
+                subjects = getSubjectsByYearLevelAndSemester(yearLevel, currentSem, defaultSubjects);
+            }
+
+            case "DCS-IT" -> {
+                defaultSubjects = new DCSInformationTechSubjects();
+                subjects = getSubjectsByYearLevelAndSemester(yearLevel, currentSem, defaultSubjects);
+            }
+
+            case "DAS" -> {
+                defaultSubjects = new DASSubjects();
+                subjects = getSubjectsByYearLevelAndSemester(yearLevel, currentSem, defaultSubjects);
+            }
+
+            case "DOE-Math" -> {
+                defaultSubjects = new DOEMajorMathSubjects();
+                subjects = getSubjectsByYearLevelAndSemester(yearLevel, currentSem, defaultSubjects);
+            }
+            case "DOE-EN" -> {
+                defaultSubjects = new DOEMajorEnglishSubjects();
+                subjects = getSubjectsByYearLevelAndSemester(yearLevel, currentSem, defaultSubjects);
+            }
+        }
+
+        int successfulSubjectInsert = 0;
+        int failedSubjectInsert = 0;
+        for (var subject : subjects) {
+            System.out.println(subject);
+            String insertSubjectQuery = "INSERT INTO subject (studentId,subjectCode,faculty,subjectTitle,units,semester,yearLevel) VALUES (%d,'%s','%s','%s','%s','%s','%s')"
+                    .formatted(studentId,
+                            subject.getSubjectCode(),
+                            subject.getFaculty(),
+                            subject.getSubjectTitle(),
+                            subject.getUnits(),
+                            subject.getSemester(),
+                            subject.getYearLevel());
+
+            var insertSubjectStmt = conn.prepareStatement(insertSubjectQuery);
+
+            int insertedSubjectsRows = insertSubjectStmt.executeUpdate();
+
+            if (insertedSubjectsRows > 0) {
+                successfulSubjectInsert++;
+            } else {
+                failedSubjectInsert++;
+            }
+
+            insertSubjectStmt.close();
+        }
+
+        System.out.println("""
+                            \nSUCCESSFULLY INSERTED %d SUBJECTS
+                            WITH %d FAILED INSERTIONS.
+                            """.formatted(successfulSubjectInsert, failedSubjectInsert));
+    }
+
+    private List<StudentSubject> getSubjectsByYearLevelAndSemester(String yearLevel, String currentSem, DefaultSubject defaultSubjects) {
+        if (yearLevel.equals("1") && currentSem.equals("1")) {
+            return defaultSubjects.getFirstYearFirstSem();
+        } else if (yearLevel.equals("1") && currentSem.equals("2")) {
+            return defaultSubjects.getFirstYearSecondSem();
+        } else if (yearLevel.equals("2") && currentSem.equals("1")) {
+            return defaultSubjects.getSecondYearFirstSem();
+        } else if (yearLevel.equals("2") && currentSem.equals("2")) {
+            return defaultSubjects.getSecondYearSecondSem();
+        } else if (yearLevel.equals("3") && currentSem.equals("1")) {
+            return defaultSubjects.getThirdYearFirstSem();
+        } else if (yearLevel.equals("3") && currentSem.equals("2")) {
+            return defaultSubjects.getThirdYearSecondSem();
+        } else if (yearLevel.equals("4") && currentSem.equals("1")) {
+            return defaultSubjects.getFourthYearFirstSem();
+        } else if (yearLevel.equals("4") && currentSem.equals("2")) {
+            return defaultSubjects.getFourthYearSecondSem();
+        } else {
+            return null;
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -518,10 +740,6 @@ public class NewSignUpFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
@@ -529,7 +747,6 @@ public class NewSignUpFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel22;
@@ -543,7 +760,6 @@ public class NewSignUpFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JTextField lastNameField;
     private javax.swing.JComboBox<String> sectionComboBox;

@@ -7,7 +7,7 @@ package sims;
 import com.formdev.flatlaf.FlatDarkLaf;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import sims.ui.MainFrame;
+import sims.ui.NewLoginFrame;
 
 /**
  *
@@ -25,12 +25,12 @@ public class StudentInformationManagementSystem {
         } catch (UnsupportedLookAndFeelException ex) {
             System.out.println("Error on setting look and feel.");
         }
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            var mainFrame = new MainFrame();
-            mainFrame.setLocationRelativeTo(null);
-            mainFrame.setVisible(true);
+            var loginFrame = new NewLoginFrame();
+            loginFrame.setLocationRelativeTo(null);
+            loginFrame.setVisible(true);
         });
     }
 }
