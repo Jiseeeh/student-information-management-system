@@ -385,6 +385,12 @@ public class UserProfilePanel extends javax.swing.JPanel {
             Modal.show("Password cannot be invalid.", "Invalid input", JOptionPane.WARNING_MESSAGE);
             return;
         }
+        
+        if (passwordField.getText().length() < 10) {
+            Modal.show("Password must be grater than 10", "Invalid input", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
         if (!contactNoField.getText().matches("^09\\d{9}$")) {
             Modal.show("Contact number is not valid.", "Invalid input", JOptionPane.WARNING_MESSAGE);
             return;
