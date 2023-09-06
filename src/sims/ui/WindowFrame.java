@@ -4,6 +4,7 @@
  */
 package sims.ui;
 
+import javax.swing.JOptionPane;
 import sims.model.Colors;
 import sims.model.Student;
 
@@ -59,6 +60,8 @@ public class WindowFrame extends javax.swing.JFrame {
         COR_ReportSection = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         Icon4 = new javax.swing.JLabel();
+        logoutPanel = new javax.swing.JPanel();
+        logoutLabel = new javax.swing.JLabel();
         ContentPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -287,12 +290,50 @@ public class WindowFrame extends javax.swing.JFrame {
 
         SideBar.add(COR_ReportSection);
 
+        logoutPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        logoutPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoutPanelMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                logoutPanelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                logoutPanelMouseExited(evt);
+            }
+        });
+
+        logoutLabel.setFont(new java.awt.Font("JetBrains Mono", 0, 24)); // NOI18N
+        logoutLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        logoutLabel.setText("LOGOUT");
+
+        javax.swing.GroupLayout logoutPanelLayout = new javax.swing.GroupLayout(logoutPanel);
+        logoutPanel.setLayout(logoutPanelLayout);
+        logoutPanelLayout.setHorizontalGroup(
+            logoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logoutPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(logoutLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47))
+        );
+        logoutPanelLayout.setVerticalGroup(
+            logoutPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logoutPanelLayout.createSequentialGroup()
+                .addContainerGap(29, Short.MAX_VALUE)
+                .addComponent(logoutLabel)
+                .addGap(26, 26, 26))
+        );
+
         javax.swing.GroupLayout SidebarContainerLayout = new javax.swing.GroupLayout(SidebarContainer);
         SidebarContainer.setLayout(SidebarContainerLayout);
         SidebarContainerLayout.setHorizontalGroup(
             SidebarContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(UserDetailsSection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(SideBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SidebarContainerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(logoutPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         SidebarContainerLayout.setVerticalGroup(
             SidebarContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,7 +341,9 @@ public class WindowFrame extends javax.swing.JFrame {
                 .addComponent(UserDetailsSection, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(SideBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(logoutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         ContentPanel.setLayout(new java.awt.CardLayout());
@@ -404,6 +447,27 @@ public class WindowFrame extends javax.swing.JFrame {
         ContentPanel.add(cogReportPanel);
     }//GEN-LAST:event_COR_ReportSectionMouseClicked
 
+    private void logoutPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutPanelMouseEntered
+        logoutPanel.setBackground(Colors.HOVER_COLOR);
+    }//GEN-LAST:event_logoutPanelMouseEntered
+
+    private void logoutPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutPanelMouseExited
+        logoutPanel.setBackground(Colors.PRIMARY_COLOR);
+    }//GEN-LAST:event_logoutPanelMouseExited
+
+    private void logoutPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutPanelMouseClicked
+        
+        int result = JOptionPane.showConfirmDialog(null, "Do you want to logout?");
+        
+        if(result == JOptionPane.YES_OPTION) {
+            this.dispose();
+            
+            var mainFrame = new NewLoginFrame();
+            mainFrame.setLocationRelativeTo(null);
+            mainFrame.setVisible(true);
+        }
+    }//GEN-LAST:event_logoutPanelMouseClicked
+
     private void clear() {
         ContentPanel.removeAll();
         ContentPanel.repaint();
@@ -467,6 +531,8 @@ public class WindowFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel logoutLabel;
+    private javax.swing.JPanel logoutPanel;
     private javax.swing.JLabel studentNameLabel;
     // End of variables declaration//GEN-END:variables
 }
