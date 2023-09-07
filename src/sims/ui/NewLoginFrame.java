@@ -445,6 +445,8 @@ public class NewLoginFrame extends javax.swing.JFrame {
     private void showPasswordCheckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPasswordCheckboxActionPerformed
          boolean isChecked = showPasswordCheckbox.isSelected();
         
+         // BRUTE FORCE way to prevent showing of * if it is the placeholder
+         // which is the Enter Password
          if (passwordField.getText().equals("Enter Password")) return;
          
         if (isChecked) passwordField.setEchoChar((char)0);

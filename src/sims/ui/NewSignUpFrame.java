@@ -493,11 +493,13 @@ public class NewSignUpFrame extends javax.swing.JFrame {
     private void signUpButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpButtonActionPerformed
         var validator = new Validator();
 
+        // BRUTE FORCE way to prevent signing up with the placeholder First Name
         if (firstNameField.getText().equals("First Name") || !validator.isValidText(firstNameField.getText(), true)) {
             Modal.show("First Name must be valid.", "Invalid First Name", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
+        // BRUTE FORCE way to prevent signing up with the placeholder Last Name
         if (lastNameField.getText().equals("Last Name") || !validator.isValidText(lastNameField.getText(), true)) {
             Modal.show("Last Name must be valid.", "Invalid Last Name", JOptionPane.WARNING_MESSAGE);
             return;
