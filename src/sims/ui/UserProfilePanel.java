@@ -430,7 +430,7 @@ public class UserProfilePanel extends javax.swing.JPanel {
         student.getEmail().setReserveEmail(altEmailField.getText());
         student.setAddress(addressField.getText());
         
-        
+        // TODO(if have time/motivation): use prepared statement not directly injecting values.
         try(var conn = DatabaseConnector.getConnection()) {
             String updateStudentQuery = "UPDATE student SET middleName = '%s', alternativeEmail = '%s', password = '%s', sex = '%s' WHERE studentNumber = %s"
                     .formatted(middleNameField.getText(),

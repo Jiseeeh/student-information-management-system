@@ -514,6 +514,7 @@ public class NewSignUpFrame extends javax.swing.JFrame {
         var email = new Email(firstNameField.getText(), lastNameField.getText(), departmentComboBox.getSelectedItem().toString());
         System.out.println(email.showInfo());
 
+        // TODO(if have time/motivation): use prepared statement not directly injecting values.
         String studentQuery = "INSERT INTO student (firstName,lastName,department,studentNumber,email,password,yearLevel,section,currentSem,sex) VALUES('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')"
                 .formatted(email.getFirstName(),
                         email.getLastName(),

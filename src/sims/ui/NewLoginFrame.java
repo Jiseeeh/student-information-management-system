@@ -311,6 +311,7 @@ public class NewLoginFrame extends javax.swing.JFrame {
             return;
         }
         
+        // TODO(if have time/motivation): use prepared statement not directly injecting values.
         String selectStudentQuery = """
                       SELECT * FROM student 
                       INNER JOIN student_info
