@@ -14,6 +14,7 @@ public class Validator {
         boolean isValid = true;
         
         if (input.toLowerCase() == null) isValid = false;
+        else if (input.equals("")) isValid = false;
         else if (input.matches("\\s+")) isValid = false; // spaces
         else if (checkForDigits && input.matches(".*\\d+.*")) isValid = false; // digits
         
